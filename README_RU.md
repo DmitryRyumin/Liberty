@@ -6,7 +6,7 @@
 ![PyPI - Status](https://img.shields.io/pypi/status/liberty)
 ![PyPI - License](https://img.shields.io/pypi/l/liberty)
 
-| [История релизов](https://github.com/DmitryRyumin/PVV/blob/master/NOTES_RU.md) | [Документация на английском](https://github.com/DmitryRyumin/PVV/blob/master/README.md) |
+| [История релизов](https://github.com/DmitryRyumin/Liberty/blob/master/README_RU.md) | [Документация на английском](https://github.com/DmitryRyumin/Liberty) |
 | --- | --- |
 
 ## Установка
@@ -50,19 +50,19 @@ pip install --upgrade liberty
 
 | Название | Описание |
 | -------- | -------- |
-| [trml](https://github.com/DmitryRyumin/pkgs/tree/master/trml) | Работа с Shell |
-| [core](https://github.com/DmitryRyumin/pkgs/tree/master/core2pkgs) | Ядро модулей |
-| [filem](https://github.com/DmitryRyumin/pkgs/tree/master/filem) | Работа с файлами |
-| [pvv](https://github.com/DmitryRyumin/pkgs/tree/master/pvv) | Воспроизведение фото/видео данных |
+| [trml](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/trml) | Работа с Shell |
+| [core](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/core) | Ядро модулей |
+| [filem](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/filem) | Работа с файлами |
+| [pvv](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/pvv) | Воспроизведение фото/видео данных |
 
 ## Конфигурационные файлы
 
 | Название | Описание |
 | -------- | -------- |
-| [pvv](https://github.com/DmitryRyumin/pkgs/tree/master/pvv) | Воспроизведение фото/видео данных |
+| [pvv](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/config.json) | Воспроизведение фото/видео данных |
 
 ## Примеры
 
 | Название | Описание |
 | -------- | -------- |
-| [pvv](https://github.com/DmitryRyumin/pkgs/tree/master/pvv) | Воспроизведение фото/видео данных |
+| [pvv](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/play.py) | Воспроизведение фото/видео данных |
