@@ -48,21 +48,9 @@ pip install --upgrade liberty
 
 ## Модули
 
-| Название | Описание |
-| -------- | -------- |
-| [trml](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/trml) | Работа с Shell |
-| [core](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/core) | Ядро модулей |
-| [filem](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/filem) | Работа с файлами |
-| [pvv](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/pvv) | Воспроизведение фото/видео данных |
-
-## Конфигурационные файлы
-
-| Название | Описание |
-| -------- | -------- |
-| [pvv](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/config.json) | Воспроизведение фото/видео данных |
-
-## Примеры
-
-| Название | Описание |
-| -------- | -------- |
-| [pvv](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/play.py) | Воспроизведение фото/видео данных |
+| Название | Описание | Конфигурационный файл | Примеры |
+| -------- | -------- | --------------------- | ------- |
+| [trml](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/trml) | Работа с Shell | | |
+| [core](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/core) | Ядро модулей | | |
+| [filem](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/filem) | Работа с файлами | | |
+| [pvv](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/pvv) | Воспроизведение фото/видео данных | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/config.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/play.py) |
