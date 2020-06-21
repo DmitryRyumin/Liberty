@@ -43,7 +43,9 @@ class Messages(Viewer):
     def __init__(self):
         super().__init__()  # Выполнение конструктора из суперкласса
 
-        self._pvv = self._('{}{}PVV - Воспроизведение фото/видео данных ...{}')
+        self._pvv = self._('Воспроизведение фото/видео данных')
+
+        self._pvv_time = '{}{}' + self._pvv + ' ...{}'
 
         self._run_web = self._('[{}] Запуск WEB камеры ...')
         self._run_web_err = self._('[{}{}{}] Для запуска WEB-камеры необходимо указать --file {} ...')
@@ -56,7 +58,6 @@ class Messages(Viewer):
         self._frame_rate = 'FPS: {:.2f}'
         self._frame_rate_static = 'FPS: 60+'
 
-        # TODO
         self._wrong_extension = (self._('[{}{}{}] Расширение файла для фото должно быть одним из:') +
                                  '\n' + ' ' * 4 + '"{}" (фото данные)' +
                                  '\n' + ' ' * 4 + '"{}" (видео данные)')
@@ -137,19 +138,20 @@ class Run(Messages):
     # ------------------------------------------------------------------------------------------------------------------
 
     # Построение аргументов командной строки
-    def _build_args(self, conv_to_dict = True):
+    def _build_args(self, description, conv_to_dict = True):
         """
         Построение аргументов командной строки
 
-        ([bool]) -> None or dict
+        (str [, bool]) -> None or dict
 
         Аргументы:
+            description  - Описание парсера командной строки
             conv_to_dict - Преобразование списка аргументов командной строки в словарь
 
         Возвращает: dict если парсер командной строки окончательный, в обратном случае None
         """
 
-        super().build_args(False)  # Выполнение функции из суперкласса
+        super().build_args(description = description, conv_to_dict = False)  # Выполнение функции из суперкласса
 
         # Добавление аргументов в парсер командной строки
         self._ap.add_argument('--file', default = 0, metavar = self._('ФАЙЛ'),
@@ -1063,7 +1065,7 @@ class Run(Messages):
 
             return False
 
-        self._args = self._build_args()  # Построение аргументов командной строки
+        self._args = self._build_args(self._pvv)  # Построение аргументов командной строки
 
         self.clear_shell(self._args['no_clear_shell'])  # Очистка консоли перед выполнением
 
@@ -1071,7 +1073,7 @@ class Run(Messages):
         if out is True:
             # Приветствие
             Shell.add_line()  # Добавление линии во весь экран
-            print(self._pvv.format(self.bold, self.blue, self.end))
+            print(self._pvv_time.format(self.bold, self.blue, self.end))
             Shell.add_line()  # Добавление линии во весь экран
 
         # Загрузка и проверка конфигурационного файла

@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2020-06-10 22:27+0300\n"
-"PO-Revision-Date: 2020-06-10 22:34+0300\n"
+"POT-Creation-Date: 2020-06-21 07:27+0300\n"
+"PO-Revision-Date: 2020-06-21 07:34+0300\n"
 "Last-Translator: Dmitry Ryumin <dl_03.03.1991@mail.ru>\n"
 "Language-Team: Russian <dl_03.03.1991@mail.ru>\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: pvv/modules/core/config.py:168
+#: liberty/modules/core/config.py:164
 msgid ""
 "[{}] Запуск: \n"
 "    Автор: {}\n"
@@ -24,169 +24,162 @@ msgid ""
 "    Версия: {}"
 msgstr ""
 
-#: pvv/samples/play.py:66
-msgid "повтор"
-msgstr ""
-
-#: pvv/samples/play.py:69
-msgid "[{}] Загрузка шрифта ..."
-msgstr ""
-
-#: pvv/samples/play.py:70
-msgid "[{}{}{}] Шрифт не найден ..."
-msgstr ""
-
-#: pvv/samples/play.py:71
-msgid "[{}{}{}] Шрифт не загружен ..."
-msgstr ""
-
-#: pvv/samples/play.py:73
-msgid "Ошибка в конфигурационном файле ..."
-msgstr ""
-
-#: pvv/samples/play.py:74
-msgid "Информация отображается в окне воспроизведения ..."
-msgstr ""
-
-#: pvv/modules/core/config.py:172
+#: liberty/modules/core/config.py:173
 msgid "[{}{}{}] Неверные типы аргументов в \"{}\" ..."
 msgstr ""
 
-#: pvv/modules/core/config.py:174
+#: liberty/modules/core/config.py:175
 msgid "[{}{}{}] Необходимые значения в командной строке не найдены ..."
 msgstr ""
 
-#: pvv/modules/core/core.py:54
-msgid "Воспроизведение фото/видео данных"
-msgstr ""
-
-#: pvv/modules/filem/file_manager.py:33
+#: liberty/modules/filem/file_manager.py:33
 msgid "[{}] Поиск \"{}\" файла ..."
 msgstr ""
 
-#: pvv/modules/filem/file_manager.py:34
-msgid "[{}{}{}] Необходимо указать название {} файла ..."
+#: liberty/modules/filem/file_manager.py:34
+msgid "[{}{}{}] Необходимо указать название файла с расширением \"{}\" ..."
 msgstr ""
 
-#: pvv/modules/filem/file_manager.py:35
-msgid "[{}{}{}] Передана директория за место файла ..."
+#: liberty/modules/filem/file_manager.py:35
+msgid "[{}{}{}] Вместо файла передана директория ..."
 msgstr ""
 
-#: pvv/modules/filem/file_manager.py:36
+#: liberty/modules/filem/file_manager.py:36
 msgid "[{}{}{}] Файл \"{}\" не найден ..."
 msgstr ""
 
-#: pvv/modules/filem/file_manager.py:37
+#: liberty/modules/filem/file_manager.py:37
 msgid "[{}] Файл \"{}\" не найден, но был создан ..."
 msgstr ""
 
-#: pvv/modules/filem/file_manager.py:38
+#: liberty/modules/filem/file_manager.py:38
 msgid "[{}{}{}] Расширение файла должно быть \"{}\" ..."
 msgstr ""
 
-#: pvv/modules/filem/file_manager.py:40
+#: liberty/modules/filem/file_manager.py:40
 msgid "[{}] Очистка директории \"{}\" ..."
 msgstr ""
 
-#: pvv/modules/filem/file_manager.py:41
+#: liberty/modules/filem/file_manager.py:41
 msgid "[{}{}{}] Директория \"{}\" не найдена ..."
 msgstr ""
 
-#: pvv/modules/filem/file_manager.py:43
-msgid "[{}] Загрузка данных из файла \"{}\" ..."
-msgstr ""
-
-#: pvv/modules/filem/json.py:35
+#: liberty/modules/filem/json_.py:35
 msgid "[{}] Загрузка данных из ресурсов ..."
 msgstr ""
 
-#: pvv/modules/filem/json.py:36
+#: liberty/modules/filem/json_.py:36
 msgid "[{}{}{}] Ресурс не найден ..."
 msgstr ""
 
-#: pvv/modules/filem/json.py:37
+#: liberty/modules/filem/json_.py:37
 msgid "[{}{}{}] Данные не загружены ..."
 msgstr ""
 
-#: pvv/modules/filem/json.py:38
+#: liberty/modules/filem/json_.py:38
 msgid "[{}{}{}] Файл пуст ..."
 msgstr ""
 
-#: pvv/samples/play.py:42
-msgid "{}{}PVV - Воспроизведение фото/видео данных ...{}"
+#: liberty/modules/filem/json_.py:40
+msgid "[{}] Загрузка данных из файла \"{}\" ..."
 msgstr ""
 
-#: pvv/samples/play.py:44
-msgid "[{}] Запуск WEB камеры ..."
-msgstr ""
-
-#: pvv/samples/play.py:48
-msgid "[{}{}{}] Для запуска WEB-камеры необходимо указать --file {} ..."
-msgstr ""
-
-#: pvv/samples/play.py:45
-msgid "[{}] Запуск видео ..."
-msgstr ""
-
-#: pvv/samples/play.py:46
-msgid "[{}] Отображение фото ..."
-msgstr ""
-
-#: pvv/samples/play.py:47
-msgid "[{}{}{}] WEB-камера не найдена ..."
-msgstr ""
-
-#: pvv/samples/play.py:48
-msgid "[{}{}{}] Видео повреждено ..."
-msgstr ""
-
-#: pvv/samples/play.py:49
-msgid "[{}{}{}] Фото повреждено ..."
-msgstr ""
-
-#: pvv/samples/play.py:54
-msgid ""
-"[{}{}{}] Расширение файла для фото должно быть одним из:\n"
-"    \"{}\" (фото данные)\n"
-"    \"{}\" (видео данные)"
-msgstr ""
-
-#: pvv/samples/play.py:58
-msgid "[{}] Проверка данных на валидность ..."
-msgstr ""
-
-#: pvv/samples/play.py:131
-msgid "Путь к фото/видео файлу, значение по умолчанию:"
-msgstr ""
-
-#: pvv/samples/play.py:133
-msgid "Путь к конфигурационному файлу"
-msgstr ""
-
-#: pvv/samples/play.py:135
-msgid "Автоматическая проверка конфигурационного файла в момент работы программы (работает при заданном"
-msgstr ""
-
-#: pvv/samples/play.py:138
-msgid "Через какое количество шагов проверять конфигурационный файл (работает при --automatic_update, значение по умолчанию:"
-msgstr ""
-
-#: pvv/samples/play.py:141
-msgid "Не очищать консоль перед выполнением"
-msgstr ""
-
-#: pvv/viewer.py:36
+#: liberty/modules/pvv/viewer.py:36
 msgid "[{}{}{}] Данные не получены ..."
 msgstr ""
 
-#: pvv/viewer.py:37
+#: liberty/modules/pvv/viewer.py:37
 msgid "[{}] Программа закрыта ..."
 msgstr ""
 
-#: pvv/samples/play.py:135 pvv/samples/play.py:137
+#: liberty/samples/play.py:46
+msgid "Воспроизведение фото/видео данных"
+msgstr ""
+
+#: liberty/samples/play.py:50
+msgid "[{}] Запуск WEB камеры ..."
+msgstr ""
+
+#: liberty/samples/play.py:51
+msgid "[{}{}{}] Для запуска WEB-камеры необходимо указать --file {} ..."
+msgstr ""
+
+#: liberty/samples/play.py:52
+msgid "[{}] Запуск видео ..."
+msgstr ""
+
+#: liberty/samples/play.py:53
+msgid "[{}] Отображение фото ..."
+msgstr ""
+
+#: liberty/samples/play.py:54
+msgid "[{}{}{}] WEB-камера не найдена ..."
+msgstr ""
+
+#: liberty/samples/play.py:55
+msgid "[{}{}{}] Видео повреждено ..."
+msgstr ""
+
+#: liberty/samples/play.py:56
+msgid "[{}{}{}] Фото повреждено ..."
+msgstr ""
+
+#: liberty/samples/play.py:61
+msgid "[{}{}{}] Расширение файла для фото должно быть одним из:"
+msgstr ""
+
+#: liberty/samples/play.py:65
+msgid "повтор"
+msgstr ""
+
+#: liberty/samples/play.py:67
+msgid "[{}] Проверка данных на валидность ..."
+msgstr ""
+
+#: liberty/samples/play.py:68
+msgid "[{}] Загрузка шрифта ..."
+msgstr ""
+
+#: liberty/samples/play.py:69
+msgid "[{}{}{}] Шрифт не найден ..."
+msgstr ""
+
+#: liberty/samples/play.py:70
+msgid "[{}{}{}] Шрифт не загружен ..."
+msgstr ""
+
+#: liberty/samples/play.py:72
+msgid "Ошибка в конфигурационном файле ..."
+msgstr ""
+
+#: liberty/samples/play.py:73
+msgid "Информация отображается в окне воспроизведения ..."
+msgstr ""
+
+#: liberty/samples/play.py:157 liberty/samples/play.py:159
 msgid "ФАЙЛ"
 msgstr ""
 
-#: pvv/samples/play.py:139
+#: liberty/samples/play.py:158
+msgid "Путь к фото/видео файлу, значение по умолчанию:"
+msgstr ""
+
+#: liberty/samples/play.py:160
+msgid "Путь к конфигурационному файлу"
+msgstr ""
+
+#: liberty/samples/play.py:161
 msgid "ЦЕЛОЕ_ЧИСЛО"
+msgstr ""
+
+#: liberty/samples/play.py:163
+msgid "Через какое количество шагов проверять конфигурационный файл (работает при --automatic_update, значение по умолчанию:"
+msgstr ""
+
+#: liberty/samples/play.py:167
+msgid "Автоматическая проверка конфигурационного файла в момент работы программы (работает при заданном"
+msgstr ""
+
+#: liberty/samples/play.py:170
+msgid "Не очищать консоль перед выполнением"
 msgstr ""

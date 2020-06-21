@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 MIN_PYTHON_VERSION = (3, 7)
 
 if sys.version_info[:2] != MIN_PYTHON_VERSION:
-    raise RuntimeError("Python version required = {}.{}".format(MIN_PYTHON_VERSION[0], MIN_PYTHON_VERSION[1]))
+    raise RuntimeError('Python version required = {}.{}'.format(MIN_PYTHON_VERSION[0], MIN_PYTHON_VERSION[1]))
 
 import liberty
 
@@ -58,13 +58,13 @@ with open('README.md', 'r') as fh:
         long_description = long_description,
         long_description_content_type = 'text/markdown',
         install_requires=REQUIRED_PACKAGES,
-        keywords = ['pvv'],
+        keywords = ['liberty'],
         include_package_data = True,
         classifiers = [_f for _f in CLASSIFIERS.split('\n') if _f],
         python_requires = '>=3.7',
         entry_points = {
             'console_scripts': [
-                'pvv_play = pvv.samples.play:main',
+                'liberty_play = liberty.samples.play:main',
             ],
         },
     )

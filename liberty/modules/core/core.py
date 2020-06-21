@@ -82,7 +82,7 @@ class Core(cfg.Messages):
             return None
 
         # Парсер для параметров командной строки
-        self._ap = argparse.ArgumentParser(description = self._(description))
+        self._ap = argparse.ArgumentParser(description = description)
 
         if conv_to_dict is True:
             return vars(self._ap.parse_args())  # Преобразование списка аргументов командной строки в словарь
