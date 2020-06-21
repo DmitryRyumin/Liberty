@@ -48,9 +48,9 @@ pip install --upgrade liberty
 
 ## Modules
 
-| Title | Description | Config file | Examples |
-| ----- | ----------- | ----------- | -------- |
+| Title | Description | Configuration file | Examples |
+| ----- | ----------- | ------------------ | -------- |
 | [trml](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/trml) | Operation with Shell | | |
 | [core](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/core) | Module core | | |
 | [filem](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/filem) | Operation with Files | | |
-| [pvv](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/pvv) | Playing photo/video data | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/config.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/play.py) |
+| [pvv](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/pvv) | Playing photo/video data | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/pvv.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/play.py) |

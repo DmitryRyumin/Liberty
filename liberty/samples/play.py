@@ -398,7 +398,7 @@ class Run(Messages):
             config_json = self.load(self._args['config'], False, out)  # Загрузка JSON файла
         else:
             # Загрузка JSON файла из ресурсов модуля
-            config_json = self.load_resources(resources, 'config.json', out)
+            config_json = self.load_resources(resources, 'pvv.json', out)
 
         # Конфигурационный файл не загружен
         if config_json is None:

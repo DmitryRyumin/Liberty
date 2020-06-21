@@ -1,51 +1,5 @@
 # Воспроизведение фото/видео данных
 
-![PyPI](https://img.shields.io/pypi/v/pvv)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pvv)
-![PyPI - Implementation](https://img.shields.io/pypi/implementation/pvv)
-![PyPI - Status](https://img.shields.io/pypi/status/pvv)
-![PyPI - License](https://img.shields.io/pypi/l/pvv)
-
-| [История релизов](https://github.com/DmitryRyumin/PVV/blob/master/NOTES_RU.md) | [Документация на английском](https://github.com/DmitryRyumin/PVV/blob/master/README.md) |
-| --- | --- |
-
-## Установка
-
-```shell script
-pip install pvv
-```
-
----
-
->  **Примечание для Windows!**
-
-1. Удалить `PyOpenGL`
-
-    ```shell script
-    pip uninstall PyOpenGL
-    ```
-
-2. Скачать и установить [PyOpenGL](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyopengl)
-
----
-
-## Обновление
-
-```shell script
-pip install --upgrade pvv
-```
-
-## Зависимости
-
-| Пакеты | Минимальная версия | Текущая версия |
-| ------ | ------------------ | -------------- |
-`numpy` | `1.18.4` | ![PyPI](https://img.shields.io/pypi/v/numpy) |
-`opencv-contrib-python` | `4.2.0.34` | ![PyPI](https://img.shields.io/pypi/v/opencv-contrib-python) |
-`PyOpenGL` | `3.1.5` | ![PyPI](https://img.shields.io/pypi/v/PyOpenGL) |
-`Pillow` | `7.1.2` | ![PyPI](https://img.shields.io/pypi/v/Pillow) |
-
-## [Класс для воспроизведения фото/видео данных](https://github.com/DmitryRyumin/PVV/blob/master/pvv/viewer.py)
-
 ### Аргументы командной строки
 
 | Аргумент&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Тип | Описание | Допустимые значения |
@@ -57,7 +11,7 @@ pip install --upgrade pvv
 | --automatic_update | bool | Автоматическая проверка конфигурационного файла в момент работы программы (работает при заданном `--config`) | Без значений |
 | --no_clear_shell | bool | Не очищать консоль перед выполнением | Без значений |
 
-### [Конфигурационный файл](https://github.com/DmitryRyumin/PVV/blob/master/pvv/configs/config.json)
+### [Конфигурационный файл](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/pvv.json)
 
 #### Параметры
 
@@ -114,7 +68,7 @@ pip install --upgrade pvv
     > CMD
     >
     > ```shell script
-    > pvv_play ru --file путь_к_видео_файлу --config путь_к_конфигурационному_файлу --automatic_update
+    > liberty_play ru --file путь_к_видео_файлу --config путь_к_конфигурационному_файлу --automatic_update
     > ```
 
 2. Стриминг с WEB-камеры с автоматическим обновлением конфигурационного файла каждые 50 кадров (Язык: `Английский`)
@@ -122,5 +76,5 @@ pip install --upgrade pvv
     > CMD
     >
     > ```shell script
-    > pvv_play en --file 0 --config путь_к_конфигурационному_файлу --automatic_update --frames_to_update 50
+    > liberty_play en --file 0 --config путь_к_конфигурационному_файлу --automatic_update --frames_to_update 50
     > ```
