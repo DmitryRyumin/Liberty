@@ -1,6 +1,9 @@
 # Playing photo/video data
 
-### Command line arguments
+| [Documentation in Russian](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/modules/pvv/README_RU.md) |
+| --- |
+
+## Command line arguments
 
 | Argument&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Type | Description | Valid Values |
 | -------------------------- | ---  | -------- | ------------------- |
@@ -11,9 +14,9 @@
 | --automatic_update | bool | Automatic verification of the configuration file at the time the program is running (it works with `--config`) | No value |
 | --no_clear_shell | bool | Do not clean the console before running | No value |
 
-### [Configuration file](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/pvv.json)
+## [Configuration file](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/pvv.json)
 
-#### Параметры
+### Параметры
 
 | `Json` parameter | Type | Description | Valid Values |
 | ---------------- | ---- | ----------- | ------------ |
@@ -44,7 +47,7 @@
 | fps | int | Custom FPS<br>`"real_time" = true` | From `0` to `60` |
 | show_labels | bool | Display labels in the playback window | - |
 
-#### Hotkeys
+### Hotkeys
 
 | Keyboard key | Execution |
 | ------------ | --------- |
