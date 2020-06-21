@@ -2,7 +2,7 @@
 
 ### Command line arguments
 
-| Argument&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Type | Description | Valid Values |
+| Argument&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Type | Description | Valid Values |
 | -------------------------- | ---  | -------- | ------------------- |
 | command | str | Language<br>`Default value: en` | `en`<br>`ru` |
 | --file | str | Path to photo/video file<br>`Default value: 0` | - |
@@ -16,7 +16,7 @@
 #### Параметры
 
 | `Json` parameter | Type | Description | Valid Values |
-| ---------------- | ---  | -------- | ------------------- |
+| ---------------- | ---- | ----------- | ------------ |
 | hide_metadata | bool | Hide metadata | - |
 | window_name | str | Window name | - |
 | resize | dict | Window size for resize | From `0` to `∞` |
@@ -47,7 +47,7 @@
 #### Hotkeys
 
 | Keyboard key | Execution |
-| ------------ | -------- |
+| ------------ | --------- |
 | `esc` | Closing the app window |
 | `r` | Repeat video stream playback |
 
