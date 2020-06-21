@@ -2,7 +2,7 @@
 
 ### Аргументы командной строки
 
-| Аргумент&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Тип | Описание | Допустимые значения |
+| Аргумент&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Тип | Описание | Допустимые значения |
 | -------------------------- | ---  | -------- | ------------------- |
 | command | str | Язык<br>`Значение по умолчанию: en` | `en`<br>`ru` |
 | --file | str | Путь к фото/видео файлу<br>`Значение по умолчанию: 0` | - |
