@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 MIN_PYTHON_VERSION = (3, 7)
 
-if sys.version_info[:2] != MIN_PYTHON_VERSION:
+if sys.version_info[:2] < MIN_PYTHON_VERSION:
     raise RuntimeError('Python version required = {}.{}'.format(MIN_PYTHON_VERSION[0], MIN_PYTHON_VERSION[1]))
 
 import liberty

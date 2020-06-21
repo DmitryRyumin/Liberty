@@ -763,7 +763,9 @@ class Run(Messages):
 
         # Вывод сообщения
         if out is True:
-            sys.stdout.write('\r' + ' ' * 4 + '{}\r' + ' ' * 4 + '{}'.format(' ' * len(self._stdout), stdout))
+            indent = '\r' + ' ' * 4 + '{}\r' + ' ' * 4 + '{}'
+
+            sys.stdout.write(indent.format(' ' * len(self._stdout), stdout))
             sys.stdout.flush()
 
         self._stdout = stdout
