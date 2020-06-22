@@ -14,7 +14,8 @@ REQUIRED_PACKAGES = [
     'opencv-contrib-python >= 4.2.0.34',
     'PyOpenGL >= 3.1.5',
     'PyOpenGL-accelerate >= 3.1.5',
-    'Pillow >= 7.1.2'
+    'Pillow >= 7.1.2',
+    'comtypes >= 1.1.7'
 ]
 
 CLASSIFIERS = """\

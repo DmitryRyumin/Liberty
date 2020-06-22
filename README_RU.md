@@ -45,6 +45,7 @@ pip install --upgrade liberty
 `PyOpenGL` | `3.1.5` | ![PyPI](https://img.shields.io/pypi/v/PyOpenGL) |
 `PyOpenGL-accelerate` | `3.1.5` | ![PyPI](https://img.shields.io/pypi/v/PyOpenGL-accelerate) |
 `Pillow` | `7.1.2` | ![PyPI](https://img.shields.io/pypi/v/Pillow) |
+`comtypes` | `1.1.7` | ![PyPI](https://img.shields.io/pypi/v/comtypes) |
 
 ## Модули
 
