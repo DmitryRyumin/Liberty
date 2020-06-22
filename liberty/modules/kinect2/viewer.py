@@ -17,12 +17,16 @@ import cv2          # Алгоритмы компьютерного зрения
 from datetime import datetime    # Работа со временем
 from _testcapi import USHRT_MAX  # Максимально доступное число для формата ushort
 
-sys.path.insert(0, 'C:/Users/dl_03/Desktop/Github/Liberty/')
-
 # Персональные
-from liberty.modules.core import config as cfg                        # Глобальный файл настроек
+from liberty.modules.core import config as cfg    # Глобальный файл настроек
+from liberty.modules.kinect2.core.cap import Cap  # Заглушка
+
+cap = Cap()
+
+if cap.win8_later() is False:
+    raise SystemExit(0)
+
 from liberty.modules.kinect2.core import PyKinectRuntime, PyKinectV2  # Работа с Kinect 2
-from liberty.samples.play import Run  # Воспроизведение фото/видео данных
 
 
 # ######################################################################################################################
@@ -38,7 +42,6 @@ class Messages(cfg.Messages):
     def __init__(self):
         super().__init__()  # Выполнение конструктора из суперкласса
 
-        self._requires_os = self._('[{}{}{}] Требуется операционная система Windows') + ' >= {}.{} ...'
         self._run_kinect = self._('[{}] Запуск сенсора Kinect 2 ...')
         self._kinect_not_found = self._('[{}{}{}] Достигнут лимит ожидания запуска сенсора Kinect 2 в {} секунд ...')
 
@@ -65,25 +68,9 @@ class KinectViewer(Messages):
         self._skeleton_landmarks_color = {}  # Ориентиры скелетов для соединения линиями
         self._skeleton_landmarks_depth = {}  # Ориентиры скелетов карт глубины
 
-    def re(self):
-        min_os_windows = (11, 0)  # Минимальная версия Windows
-
-        # Заглушка
-        if sys.platform != 'win32' or int(platform.version().split('.')[0]) < min_os_windows[0]:
-            t = self._requires_os.format(
-                self.red, datetime.now().strftime(self._format_time), self.end, min_os_windows[0], min_os_windows[1])
-
-            print(t)
-
-            raise SystemExit(t)
-
 
 def main():
-    print("\033[31mfds")
-
     kinect = KinectViewer()
-
-    kinect.re()
 
 
 if __name__ == "__main__":

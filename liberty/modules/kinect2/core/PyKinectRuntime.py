@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+Ядро Kinect2
+"""
+
 from liberty.modules.kinect2.core import PyKinectV2
 from liberty.modules.kinect2.core.PyKinectV2 import *
 

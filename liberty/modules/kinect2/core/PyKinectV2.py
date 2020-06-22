@@ -1,4 +1,9 @@
-# -*- coding: mbcs -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+Ядро Kinect2
+"""
 
 import ctypes
 import comtypes
