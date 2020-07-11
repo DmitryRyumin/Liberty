@@ -56,7 +56,7 @@
 | skeleton_outline_size | int | Ширина обводки фона точек скелетных суставов<br>`"skeleton_tracking" = true` | От `0` до `10` |
 | skeleton_tracking_lines | bool | Соединение скелетный суставов линиями | - |
 | skeleton_lines_width | int | Толщина линии соединения скелетных суставов<br>`"skeleton_tracking_lines" = true` | От `0` до `10` |
-| skeleton_lines_color | dict |Цвет линии соединения скелетных суставов<br>`"skeleton_tracking_lines" = true` | От `0` до `255` |
+| skeleton_lines_color | dict | Цвет линии соединения скелетных суставов<br>`"skeleton_tracking_lines" = true` | От `0` до `255` |
 
 ### Горячие клавиши
 

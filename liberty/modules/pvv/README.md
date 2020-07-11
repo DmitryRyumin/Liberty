@@ -16,7 +16,7 @@
 
 ## [Configuration file](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/pvv.json)
 
-### Параметры
+### Parameters
 
 | `Json` parameter | Type | Description | Valid Values |
 | ---------------- | ---- | ----------- | ------------ |
