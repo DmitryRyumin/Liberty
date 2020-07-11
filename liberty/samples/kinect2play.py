@@ -13,10 +13,6 @@ python liberty/samples/kinect2play.py [<command> --config путь_к_конфи
 # ######################################################################################################################
 from datetime import datetime  # Работа со временем
 
-import sys  # Доступ к некоторым переменным и функциям Python
-# sys.path.insert(0, '/Users/dl/GitHub/Liberty/')
-sys.path.insert(0, 'C:/Users/dl_03/Desktop/Github/Liberty/')
-
 # Персональные
 import liberty  # Воспроизведение фото/видео данных
 
