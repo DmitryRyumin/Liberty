@@ -2,6 +2,12 @@
 
 ## July 11, 2020
 
+> `1.0.2`
+
+<h4><span style="color:#DB534F;">Fixed bugs</span></h4>
+
+- Fixed error of missing XML file with skeleton model
+
 > `1.0.1`
 
 <h4><span style="color:#008000;">What's new</span></h4>
