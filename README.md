@@ -46,6 +46,8 @@ pip install --upgrade liberty
 `PyOpenGL-accelerate` | `3.1.5` | ![PyPI](https://img.shields.io/pypi/v/PyOpenGL-accelerate) |
 `Pillow` | `7.1.2` | ![PyPI](https://img.shields.io/pypi/v/Pillow) |
 `comtypes` | `1.1.7` | ![PyPI](https://img.shields.io/pypi/v/comtypes) |
+`colorama` | `0.4.3` | ![PyPI](https://img.shields.io/pypi/v/colorama) |
+`xmltodict` | `0.12.0` | ![PyPI](https://img.shields.io/pypi/v/xmltodict) |
 
 ## Modules
 
@@ -55,3 +57,4 @@ pip install --upgrade liberty
 | [core](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/core) | Module core | | |
 | [filem](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/filem) | Operation with Files | | |
 | [pvv](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/pvv) | Playing photo/video data | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/pvv.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/play.py) |
+| [kinect2](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/modules/kinect2/README_RU.md) | Playing video data from the Kinect 2 sensor<br><br>**Note!**Requires Windows operating system >= 8.0 | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/kinect2.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/kinect2play.py) |

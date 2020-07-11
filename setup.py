@@ -15,7 +15,9 @@ REQUIRED_PACKAGES = [
     'PyOpenGL >= 3.1.5',
     'PyOpenGL-accelerate >= 3.1.5',
     'Pillow >= 7.1.2',
-    'comtypes >= 1.1.7'
+    'comtypes >= 1.1.7',
+    'colorama >= 0.4.3',
+    'xmltodict >= 0.12.0'
 ]
 
 CLASSIFIERS = """\
@@ -66,6 +68,7 @@ with open('README.md', 'r') as fh:
         entry_points = {
             'console_scripts': [
                 'liberty_play = liberty.samples.play:main',
+                'liberty_kinect2play = liberty.samples.kinect2play:main',
             ],
         },
     )

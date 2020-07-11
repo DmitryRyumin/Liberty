@@ -46,6 +46,8 @@ pip install --upgrade liberty
 `PyOpenGL-accelerate` | `3.1.5` | ![PyPI](https://img.shields.io/pypi/v/PyOpenGL-accelerate) |
 `Pillow` | `7.1.2` | ![PyPI](https://img.shields.io/pypi/v/Pillow) |
 `comtypes` | `1.1.7` | ![PyPI](https://img.shields.io/pypi/v/comtypes) |
+`colorama` | `0.4.3` | ![PyPI](https://img.shields.io/pypi/v/colorama) |
+`xmltodict` | `0.12.0` | ![PyPI](https://img.shields.io/pypi/v/xmltodict) |
 
 ## Модули
 
@@ -55,3 +57,4 @@ pip install --upgrade liberty
 | [core](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/core) | Ядро модулей | | |
 | [filem](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/filem) | Работа с файлами | | |
 | [pvv](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/modules/pvv/README_RU.md) | Воспроизведение фото/видео данных | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/pvv.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/play.py) |
+| [kinect2](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/modules/kinect2/README_RU.md) | Воспроизведение видеоданных из сенсора Kinect 2<br><br>**Примечание!**Требуется операционная система Windows >= 8.0 | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/kinect2.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/kinect2play.py) |

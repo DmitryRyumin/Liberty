@@ -17,13 +17,13 @@ from datetime import datetime  # Работа со временем
 from OpenGL import GL, GLUT    # Работа с графикой
 
 # Персональные
-from liberty.modules.filem.json_ import Json  # Работа с JSON
+from liberty.modules.filem.xml_ import Xml  # Работа с XML
 
 
 # ######################################################################################################################
 # Сообщения
 # ######################################################################################################################
-class Messages(Json):
+class Messages(Xml):
     """Класс для сообщений"""
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -58,6 +58,7 @@ class Viewer(Messages):
         move_window_y = 30,  # Перемещение окна по оси Y
         clear_image_buffer = True,  # Очистка буфера с изображением
         repeat = False,  # Повтор видеофайла
+        alpha = True,  # Альфа-канал
         out = True  # Печатать процесс выполнения
     ):
         super().__init__()  # Выполнение конструктора из суперкласса
@@ -76,6 +77,8 @@ class Viewer(Messages):
         self.clear_image_buffer = clear_image_buffer
 
         self.repeat = repeat
+
+        self.alpha = alpha
 
         self.image_buffer = None  # Буфер с изображением
         self._cnt = 0  # Счетчик кадров
@@ -190,6 +193,16 @@ class Viewer(Messages):
     def repeat(self, r):
         self._repeat = r
 
+    # Получение альфа-канала
+    @property
+    def alpha(self):
+        return self._alpha
+
+    # Установка альфа-канал
+    @alpha.setter
+    def alpha(self, a):
+        self._alpha = a
+
     # ------------------------------------------------------------------------------------------------------------------
     # Внутренние методы
     # ------------------------------------------------------------------------------------------------------------------
@@ -234,16 +247,22 @@ class Viewer(Messages):
                                 raise SystemExit(stdout)
 
                 GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)  # Очистка буфера
-                GL.glColor4f(1.0, 1.0, 1.0, 1.0)  # Цвет
+                # Изображение с Альфа каналом
+                if self.alpha is True:
+                    GL.glColor4f(1.0, 1.0, 1.0, 1.0)  # Цвет
+                    color_model = GL.GL_RGBA  # Цветовая модель
+                else:
+                    GL.glColor3f(1.0, 1.0, 1.0)  # Цвет
+                    color_model = GL.GL_RGB  # Цветовая модель
                 GL.glMatrixMode(GL.GL_PROJECTION)  # Применять матричные операции к стеку проекционных матриц
                 GL.glLoadIdentity()  # Единичная матрица
                 GL.glOrtho(-1, 1, -1, 1, -1, 1)  # Умножение текущей матрицы на ортографическую матрицу
                 GL.glMatrixMode(GL.GL_MODELVIEW)  # Установка текущей матрицы
                 GL.glLoadIdentity()  # Единичная матрица
                 # Двухмерная текстура изображения
-                GL.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA,
+                GL.glTexImage2D(GL.GL_TEXTURE_2D, 0, color_model,
                                 self.image_buffer.shape[1], self.image_buffer.shape[0],
-                                0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, self.image_buffer)
+                                0, color_model, GL.GL_UNSIGNED_BYTE, self.image_buffer)
                 GL.glEnable(GL.GL_TEXTURE_2D)
                 GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR)
                 GL.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR)
@@ -376,17 +395,26 @@ class Viewer(Messages):
         frame_width = frame_clone.shape[1]  # Ширина изображения
         frame_height = frame_clone.shape[0]  # Высота изображения
 
-        # Ширина изображения нулевая
-        if not width:
-            width = frame_width
+        while True:
+            # Ширина изображения нулевая
+            if not width:
+                width = frame_width
 
-        # Высота изображения нулевая
-        if not height:
-            height = int(frame_height * width / frame_width)  # Масштабирование ширины относительно изначальной ширины
+            # Высота изображения нулевая
+            if not height:
+                # Масштабирование ширины относительно изначальной ширины
+                height = int(frame_height * width / frame_width)
+
+            if height == 0:
+                width += 1
+
+                continue
+
+            break
 
         # Получение значений во сколько раз масштабировалось изображение меньше/больше исходного изображения
-        scale_width = frame_width / width  # Ширина
-        scale_height = frame_height / height  # Высота
+        scale_width = round(frame_width / width, 5)  # Ширина
+        scale_height = round(frame_height / height, 5)  # Высота
 
         # Изменение размера изображения
         frame_resize = cv2.resize(frame_clone, (width, height), interpolation = cv2.INTER_LINEAR)
@@ -417,7 +445,12 @@ class Viewer(Messages):
 
         GLUT.glutInit([])  # Инициализация библиотеки GLUT
         buffering = GLUT.GLUT_SINGLE  # Вариант буферизации
-        color_model = GLUT.GLUT_RGBA  # Вариант цветовой модели
+
+        # Изображение с Альфа каналом
+        if self.alpha is True:
+            color_model = GLUT.GLUT_RGBA  # Вариант цветовой модели
+        else:
+            color_model = GLUT.GLUT_RGB  # Вариант цветовой модели
 
         # Инициализация отображения в нужном режимах
         GLUT.glutInitDisplayMode(buffering | color_model | GLUT.GLUT_DEPTH)

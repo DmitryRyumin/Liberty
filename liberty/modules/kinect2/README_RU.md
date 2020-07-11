@@ -1,20 +1,25 @@
-# Воспроизведение фото/видео данных
+# Воспроизведение видеоданных из сенсора Kinect 2
 
-| [Документация на английском](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/pvv) |
+| [Документация на английском](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/kinect2) |
 | --- |
+
+---
+
+>  **Примечание!** Требуется операционная система Windows >= 8.0
+
+---
 
 ## Аргументы командной строки
 
 | Аргумент&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Тип | Описание | Допустимые значения |
 | -------------------------- | ---  | -------- | ------------------- |
 | command | str | Язык<br>`Значение по умолчанию: en` | `en`<br>`ru` |
-| --file | str | Путь к фото/видео файлу<br>`Значение по умолчанию: 0` | - |
 | --config | str | Путь к конфигурационному файлу | - |
 | --frames_to_update | int | Через какое количество шагов проверять конфигурационный файл (работает при `--automatic_update`)<br>`Значение по умолчанию: 25` | От `0` до `∞` |
 | --automatic_update | bool | Автоматическая проверка конфигурационного файла в момент работы программы (работает при заданном `--config`) | Без значений |
 | --no_clear_shell | bool | Не очищать консоль перед выполнением | Без значений |
 
-## [Конфигурационный файл](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/pvv.json)
+## [Конфигурационный файл](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/kinect2.json)
 
 ### Параметры
 
@@ -33,51 +38,48 @@
 | error_size | int | Размер шрифта уведомлений об ошибках | От `1` до `60` |
 | error_stroke | int | Ширина обводки текста уведомлений об ошибках | От `0` до `4` |
 | error_stroke_color | int | Цвет обводки текста уведомлений об ошибках | От `0` до `255` |
-| repeat_text_color | dict | Цвет текста повтора воспроизведения | От `0` до `255` |
-| repeat_background_color | dict | Цвет фона повтора воспроизведения | От `0` до `255` |
-| repeat_size | int | Размер шрифта текста повтора воспроизведения | От `1` до `120` |
-| repeat_stroke | int | Ширина обводки текста повтора воспроизведения | От `0` до `4` |
-| repeat_stroke_color | int | Цвет обводки текста повтора воспроизведения | От `0` до `255` |
 | labels_base_coords | int | Начальные координаты верхних левых информационных уведомлений | От `0` до `100` |
 | labels_padding | int | Внутренний отступ для всех текстов уведомлений | От `0` до `30` |
 | labels_distance | int | Расстояние между текстами | От `0` до `15` |
-| clear_image_buffer | bool | Очистка буфера с изображением | - |
-| real_time | bool | Воспроизведение фото/видеопотока с реальным количеством FPS | - |
-| repeat | bool | Повторение воспроизведения видеопотока | - |
-| fps | int | Пользовательский FPS<br>`"real_time" = true` | От `0` до `60` |
 | show_labels | bool | Отображение надписей в окне воспроизведения | - |
+| show_depth | bool | Отображение карты глубины | - |
+| show_infrared | bool | Отображение инфракрасного кадра | - |
+| resize_depth_ir | dict | Размер карты глубины и инфракрасного кадра для масштабирования<br>`"show_depth" = true` или `"show_infrared" = true` | От `0` до `512` |
+| labels_base_coords_depth_ir | dict | Начальные координаты карты глубины и инфракрасного кадра относительно верхнего правого угла<br>`"show_depth" = true` или `"show_infrared" = true` | От `0` до `100` |
+| distance_between_depth_ir | int | Расстояние между картой глубины и инфракрасным кадром<br>`"show_depth" = true` и `"show_infrared" = true` | От `0` до `50` |
+| norm_infrared | float | Нормализация значений инфракрасной камеры<br>`"show_infrared" = true` | От `0.01` до `1.0` |
+| skeleton_tracking | bool | Отображение скелетных суставов | - |
+| skeleton_depth_tracking | bool | Отрисовка скелетных суставов на карте глубины<br>`"show_depth" = true` | - |
+| skeleton_point_radius | int | Радиус точек скелетных суставов<br>`"skeleton_tracking" = true` | От `1` до `10` |
+| skeleton_point_background_color | dict | Цвет фона точек скелетных суставов<br>`"skeleton_tracking" = true` | От `0` до `255` |
+| skeleton_outline_color | dict | Цвет обводки фона точек скелетных суставов<br>`"skeleton_tracking" = true` | От `0` до `255` |
+| skeleton_outline_size | int | Ширина обводки фона точек скелетных суставов<br>`"skeleton_tracking" = true` | От `0` до `10` |
+| skeleton_tracking_lines | bool | Соединение скелетный суставов линиями | - |
+| skeleton_lines_width | int | Толщина линии соединения скелетных суставов<br>`"skeleton_tracking_lines" = true` | От `0` до `10` |
+| skeleton_lines_color | dict |Цвет линии соединения скелетных суставов<br>`"skeleton_tracking_lines" = true` | От `0` до `255` |
 
 ### Горячие клавиши
 
 | Клавиши | Сценарий |
 | ------- | -------- |
 | `esc` | Закрытие окна приложения |
-| `r` | Повторение воспроизведения видеопотока |
 
 <h4 align="center"><span style="color:#EC256F;">Примеры</span></h4>
 
 ---
 
->  **Примечание!** Поддерживаемые форматы
-
-| Видео | Фото |
-| ----- | ---- |
-| `mp4` и `avi` | `png` и `jpg` |
-
----
-
-1. Воспроизведение видео файла с автоматическим обновлением конфигурационного файла (Язык: `Русский`)
+1. Стриминг с сенсора Kinect 2 с автоматическим обновлением конфигурационного файла (Язык: `Русский`)
 
     > CMD
     >
     > ```shell script
-    > liberty_play ru --file путь_к_видео_файлу --config путь_к_конфигурационному_файлу --automatic_update
+    > liberty_kinect2play ru --config путь_к_конфигурационному_файлу --automatic_update
     > ```
 
-2. Стриминг с WEB-камеры с автоматическим обновлением конфигурационного файла каждые 50 кадров (Язык: `Английский`)
+2. Стриминг с сенсора Kinect 2 с автоматическим обновлением конфигурационного файла (Язык: `Английский`)
 
     > CMD
     >
     > ```shell script
-    > liberty_play en --file 0 --config путь_к_конфигурационному_файлу --automatic_update --frames_to_update 50
+    > liberty_kinect2play en --config путь_к_конфигурационному_файлу --automatic_update
     > ```

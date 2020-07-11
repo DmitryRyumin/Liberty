@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2020-06-21 07:27+0300\n"
-"PO-Revision-Date: 2020-06-21 07:34+0300\n"
+"POT-Creation-Date: 2020-07-06 07:27+0300\n"
+"PO-Revision-Date: 2020-07-06 07:34+0300\n"
 "Last-Translator: Dmitry Ryumin <dl_03.03.1991@mail.ru>\n"
 "Language-Team: English <dl_03.03.1991@mail.ru>\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: liberty/modules/core/config.py:164
+#: liberty\modules\core\config.py:168
 msgid ""
 "[{}] Запуск: \n"
 "    Автор: {}\n"
@@ -29,11 +29,11 @@ msgstr ""
 "    Maintainer: {}\n"
 "    Version: {}"
 
-#: liberty/modules/core/config.py:173
+#: liberty\modules\core\config.py:177
 msgid "[{}{}{}] Неверные типы аргументов в \"{}\" ..."
 msgstr "[{}{}{}] Invalid argument types in \"{}\" ..."
 
-#: liberty/modules/core/config.py:175
+#: liberty\modules\core\config.py:179
 msgid "[{}{}{}] Необходимые значения в командной строке не найдены ..."
 msgstr "[{}{}{}] Required command line values​not found ..."
 
@@ -70,24 +70,40 @@ msgid "[{}{}{}] Директория \"{}\" не найдена ..."
 msgstr "[{}{}{}] Directory \"{}\" not found ..."
 
 #: liberty/modules/filem/json_.py:35
-msgid "[{}] Загрузка данных из ресурсов ..."
-msgstr "[{}] Loading data from resources ..."
+msgid "[{}] Загрузка данных из файла \"{}\" ..."
+msgstr "[{}] Loading data from a file \"{}\" ..."
 
-#: liberty/modules/filem/json_.py:36
-msgid "[{}{}{}] Ресурс не найден ..."
-msgstr "[{}{}{}] Resource is not found ..."
-
-#: liberty/modules/filem/json_.py:37
+#: liberty\modules\filem\json_.py:36
 msgid "[{}{}{}] Данные не загружены ..."
 msgstr "[{}{}{}] No data loaded ..."
+
+#: liberty\modules\filem\json_.py:37
+msgid "[{}] Загрузка данных из ресурсов \"{}\" ..."
+msgstr "[{}] Loading data from resources \"{}\" ..."
+
+#: liberty\modules\filem\json_.py:38
+msgid "[{}{}{}] Ресурс не найден ..."
+msgstr "[{}{}{}] Resource is not found ..."
 
 #: liberty/modules/filem/json_.py:38
 msgid "[{}{}{}] Файл пуст ..."
 msgstr "[{}{}{}] File is empty ..."
 
-#: liberty/modules/filem/json_.py:40
-msgid "[{}] Загрузка данных из файла \"{}\" ..."
-msgstr "[{}] Loading data from a file \"{}\" ..."
+#: liberty\modules\kinect2\core\cap.py:33
+msgid "[{}{}{}] Требуется операционная система Windows"
+msgstr "[{}{}{}] Requires Windows operating system"
+
+#: liberty\modules\kinect2\viewer.py:49
+msgid "Воспроизведение видеоданных из сенсора Kinect 2"
+msgstr "Playing video data from the Kinect 2 sensor"
+
+#: liberty\modules\kinect2\viewer.py:52
+msgid "[{}] Запуск сенсора Kinect 2 ..."
+msgstr "[{}] Kinect 2 sensor launch ..."
+
+#: liberty\modules\kinect2\viewer.py:54
+msgid "[{}{}{}] Достигнут лимит ожидания запуска сенсора Kinect 2 в {} секунд ..."
+msgstr "[{}{}{}] The Kinect 2 sensor launch wait limit is reached in {} seconds ..."
 
 #: liberty/modules/pvv/viewer.py:36
 msgid "[{}{}{}] Данные не получены ..."
@@ -96,6 +112,18 @@ msgstr "[{}{}{}] Data not received ..."
 #: liberty/modules/pvv/viewer.py:37
 msgid "[{}] Программа закрыта ..."
 msgstr "[{}] Program is closed ..."
+
+#: liberty\samples\kinect2play.py:39
+msgid "Ошибка! Карта глубины не получена ..."
+msgstr "Error! Depth map not received ..."
+
+#: liberty\samples\kinect2play.py:40
+msgid "Ошибка! Инфракрасный кадр не получен ..."
+msgstr "Error! Infrared frame not received ..."
+
+#: liberty\samples\kinect2play.py:43
+msgid "Людей: {}"
+msgstr "People: {}"
 
 #: liberty/samples/play.py:46
 msgid "Воспроизведение фото/видео данных"
@@ -161,30 +189,30 @@ msgstr "Error in configuration file ..."
 msgid "Информация отображается в окне воспроизведения ..."
 msgstr "Information is displayed in the playback window ..."
 
-#: liberty/samples/play.py:157 liberty/samples/play.py:159
+#: liberty\samples\play.py:160 liberty\samples\play.py:162
 msgid "ФАЙЛ"
 msgstr "FILE"
 
-#: liberty/samples/play.py:158
+#: liberty\samples\play.py:161
 msgid "Путь к фото/видео файлу, значение по умолчанию:"
 msgstr "Path to photo/video file, default value:"
 
-#: liberty/samples/play.py:160
+#: liberty\samples\play.py:163
 msgid "Путь к конфигурационному файлу"
 msgstr "Path to configuration file"
 
-#: liberty/samples/play.py:161
+#: liberty\samples\play.py:164
 msgid "ЦЕЛОЕ_ЧИСЛО"
 msgstr "INTEGER"
 
-#: liberty/samples/play.py:163
+#: liberty\samples\play.py:166
 msgid "Через какое количество шагов проверять конфигурационный файл (работает при --automatic_update, значение по умолчанию:"
 msgstr "How many steps to check the configuration file (works with --automatic_update, default value:"
 
-#: liberty/samples/play.py:167
+#: liberty\samples\play.py:170
 msgid "Автоматическая проверка конфигурационного файла в момент работы программы (работает при заданном"
 msgstr "Automatic verification of the configuration file at the time the program is running (it works with"
 
-#: liberty/samples/play.py:170
+#: liberty\samples\play.py:173
 msgid "Не очищать консоль перед выполнением"
 msgstr "Do not clean the console before running"

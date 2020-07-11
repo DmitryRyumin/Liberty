@@ -4,7 +4,7 @@
 """
 Воспроизведение фото/видео данных
 
-python pvv/samples/play.py [<command> --file путь_к_фото_видео_файлу --config путь_к_конфигурационному_файлу
+python liberty/samples/play.py [<command> --file путь_к_фото_видео_файлу --config путь_к_конфигурационному_файлу
     --frames_to_update 25 --automatic_update --no_clear_shell]
 """
 
@@ -43,9 +43,9 @@ class Messages(Viewer):
     def __init__(self):
         super().__init__()  # Выполнение конструктора из суперкласса
 
-        self._pvv = self._('Воспроизведение фото/видео данных')
+        self._description = self._('Воспроизведение фото/видео данных')
 
-        self._pvv_time = '{}{}' + self._pvv + ' ...{}'
+        self._description_time = '{}{}' + self._description + ' ...{}'
 
         self._run_web = self._('[{}] Запуск WEB камеры ...')
         self._run_web_err = self._('[{}{}{}] Для запуска WEB-камеры необходимо указать --file {} ...')
@@ -58,7 +58,7 @@ class Messages(Viewer):
         self._frame_rate = 'FPS: {:.2f}'
         self._frame_rate_static = 'FPS: 60+'
 
-        self._wrong_extension = (self._('[{}{}{}] Расширение файла для фото должно быть одним из:') +
+        self._wrong_extension_pvdata = (self._('[{}{}{}] Расширение файла для фото должно быть одним из:') +
                                  '\n' + ' ' * 4 + '"{}" (фото данные)' +
                                  '\n' + ' ' * 4 + '"{}" (видео данные)')
 
@@ -126,12 +126,15 @@ class Run(Messages):
         }
 
         self._prev_fps = 0  # Частота кадра
+        self._label_fps = None  # Метка частоты кадров
 
         self._cap_prop_fps = 0  # Частота кадра ресурса извлечения фото/видеоданных
 
         self._show_notification = False  # Нанесение уведомлений на последний кадр
 
         self._stdout = ''  # Последняя запись в терминале
+
+        self._fps_point2 = None  # Координаты нижней левой точки (метка FPS)
 
     # ------------------------------------------------------------------------------------------------------------------
     #  Внутренние методы
@@ -374,21 +377,22 @@ class Run(Messages):
         return True  # Результат
 
     # Загрузка и проверка конфигурационного файла
-    def _load_config_json(self, resources = configs, out = True):
+    def _load_config_json(self, resources = configs, config = 'pvv.json', out = True):
         """
         Загрузка и проверка конфигурационного файла
 
-        ([module, bool]) -> bool
+        ([module, str, bool]) -> bool
 
         Аргументы:
             resources - Модуль с ресурсами
+            config    - Конфигурационный файл
             out       - Печатать процесс выполнения
 
         Возвращает: True если файл загружен и валиден, в обратном случае False
         """
 
         # Проверка аргументов
-        if type(out) is not bool or not isinstance(resources, ModuleType):
+        if type(out) is not bool or not isinstance(resources, ModuleType) or type(config) is not str or not config:
             # Вывод сообщения
             if out is True:
                 self._inv_args(__class__.__name__, self._load_config_json.__name__)
@@ -400,7 +404,7 @@ class Run(Messages):
             config_json = self.load(self._args['config'], False, out)  # Загрузка JSON файла
         else:
             # Загрузка JSON файла из ресурсов модуля
-            config_json = self.load_resources(resources, 'pvv.json', out)
+            config_json = self.load_resources(resources, config, out)
 
         # Конфигурационный файл не загружен
         if config_json is None:
@@ -607,7 +611,7 @@ class Run(Messages):
                     and ext.replace('.', '') not in self._supported_photo_formats):
                 # Вывод сообщения
                 if out is True:
-                    print(self._wrong_extension.format(
+                    print(self._wrong_extension_pvdata.format(
                         self.red, datetime.now().strftime(self._format_time), self.end,
                         ', '.join(x for x in self._supported_photo_formats),
                         ', '.join(x for x in self._supported_video_formats)
@@ -672,7 +676,7 @@ class Run(Messages):
         """
         Нанесение информации на изображение
 
-        (str, tuple, tuple, tuple, int, tuple, PIL.ImageFont.FreeTypeFont [, bool]) -> bool
+        (str, tuple, tuple, tuple, int, tuple, PIL.ImageFont.FreeTypeFont [, bool]) -> None or tuple
 
         Аргументы:
             text             - Текст
@@ -684,7 +688,7 @@ class Run(Messages):
             size             - Шрифт
             out              - Печатать процесс выполнения
 
-        Возвращает: True если информация нанесена, в обратном случае False
+        Возвращает: координаты нижней левой точки если информация нанесена, в обратном случае None
         """
 
         # Проверка аргументов
@@ -696,7 +700,7 @@ class Run(Messages):
             if out is True:
                 self._inv_args(__class__.__name__, self._draw_info.__name__)
 
-            return False
+            return None
 
         # Размеры текста
         (width_text, height_text), (offset_x, offset_y) = font.font.getsize(text)
@@ -724,7 +728,25 @@ class Run(Messages):
             stroke_fill = stroke_color
         )
 
-        return True
+        return point2
+
+    # Формирование прозрачного наложения на текущий кадр кадра
+    def _frame_transparent(self):
+        """
+        Формирование прозрачного наложения на текущий кадр кадра
+
+        () -> None
+        """
+
+        # Прозрачное наложение на текущий кадр
+        self._curr_frame_transparent = Image.new('RGBA',
+                                                 (self._curr_frame.shape[1], self._curr_frame.shape[0]),
+                                                 (255, 255, 255, 0))
+
+        # Текущий кадр в формате PIL
+        self._curr_frame_pil = Image.fromarray(np.uint8(self._curr_frame))
+        # Создание объекта, который можно использовать для рисования поверх изображения
+        self._curr_frame_pil_obj = ImageDraw.Draw(self._curr_frame_transparent, 'RGBA')
 
     # Формирование итогового кадра
     def _composite(self):
@@ -736,6 +758,7 @@ class Run(Messages):
 
         # Объединение прозрачного наложения с текущим кадром
         image_pil = Image.alpha_composite(self._curr_frame_pil, self._curr_frame_transparent)
+
         # Конвертация изображения в необходимый формат
         np.copyto(self._curr_frame, np.array(image_pil))
 
@@ -917,22 +940,15 @@ class Run(Messages):
 
             # Отображение надписей в окне воспроизведения
             if self._args['show_labels'] is True:
-                # Прозрачное наложение на текущий кадр
-                self._curr_frame_transparent = Image.new('RGBA',
-                                                         (self._curr_frame.shape[1], self._curr_frame.shape[0]),
-                                                         (255, 255, 255, 0))
-
-                # Текущий кадр в формате PIL
-                self._curr_frame_pil = Image.fromarray(np.uint8(self._curr_frame))
-                # Создание объекта, который можно использовать для рисования поверх изображения
-                self._curr_frame_pil_obj = ImageDraw.Draw(self._curr_frame_transparent, 'RGBA')
+                # Формирование прозрачного наложения на текущий кадр кадра
+                self._frame_transparent()
         else:
             other_source()  # Извлечение фото/видеоданных из сторонего ресурса
 
-        # Выполнение функции/метода
-        if func is not None and (type(func) is MethodType or type(func) is FunctionType) and \
-                self._automatic_update['invalid_config_file'] is False:
-            func()  # Выполнение операций над изображением
+            # Отображение надписей в окне воспроизведения
+            if self._args['show_labels'] is True:
+                # Формирование прозрачного наложения на текущий кадр кадра
+                self._frame_transparent()
 
         # Принудительная задержка для воспроизведения видеопотока с реальным количеством FPS
         if self._args['real_time'] is True and self._source != self._formats_data[2]:
@@ -953,22 +969,22 @@ class Run(Messages):
 
         # Количество кадров больше 60
         if self._prev_fps > 60 and self._args['real_time'] is False:
-            label_fps = self._frame_rate_static   # Текст с стическим FPS
+            self._label_fps = self._frame_rate_static   # Текст с стическим FPS
         else:
-            label_fps = self._frame_rate.format(self._prev_fps)  # Текст с FPS
+            self._label_fps = self._frame_rate.format(self._prev_fps)  # Текст с FPS
 
         # Отображение надписей в терминале
         if self._args['show_labels'] is False:
-            if self._automatic_update['invalid_config_file'] is False:
+            if self._automatic_update['invalid_config_file'] is False and other_source is None:
                 # Надпись для терминала
                 self._stdout_write(
-                    '[{}] {}'.format(datetime.now().strftime(self._format_time), label_fps),
+                    '[{}] {}'.format(datetime.now().strftime(self._format_time), self._label_fps),
                     out = out
                 )
         else:
             # Нанесение информации на изображение
-            self._draw_info(
-                text = label_fps,
+            self._fps_point2 = self._draw_info(
+                text = self._label_fps,
                 base_coords = (self._args['labels_base_coords']['left'], self._args['labels_base_coords']['top']),
                 background_color = (self._args['info_background_color']['red'],
                                     self._args['info_background_color']['green'],
@@ -987,12 +1003,18 @@ class Run(Messages):
                 out = out
             )
 
+        # Выполнение функции/метода
+        if func is not None and (type(func) is MethodType or type(func) is FunctionType) and \
+                self._automatic_update['invalid_config_file'] is False:
+            func()  # Выполнение операций над изображением
+
         if self._automatic_update['invalid_config_file'] is True:
             # Отображение надписей в терминале
             if self._args['show_labels'] is False:
                 # Надпись для терминала
                 self._stdout_write(
-                    '[{}] {}'.format(datetime.now().strftime(self._format_time), self._check_config_file_not_valid),
+                    '[{}{}{}] {}'.format(self.red, datetime.now().strftime(self._format_time), self.end,
+                                         self._check_config_file_not_valid),
                     out = out
                 )
             else:
@@ -1067,7 +1089,7 @@ class Run(Messages):
 
             return False
 
-        self._args = self._build_args(self._pvv)  # Построение аргументов командной строки
+        self._args = self._build_args(self._description)  # Построение аргументов командной строки
 
         self.clear_shell(self._args['no_clear_shell'])  # Очистка консоли перед выполнением
 
@@ -1075,7 +1097,7 @@ class Run(Messages):
         if out is True:
             # Приветствие
             Shell.add_line()  # Добавление линии во весь экран
-            print(self._pvv_time.format(self.bold, self.blue, self.end))
+            print(self._description_time.format(self.bold, self.blue, self.end))
             Shell.add_line()  # Добавление линии во весь экран
 
         # Загрузка и проверка конфигурационного файла

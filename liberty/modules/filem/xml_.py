@@ -2,27 +2,29 @@
 # -*- coding: utf-8 -*-
 
 """
-Работа с JSON
+Работа с XML
 """
 
 # ######################################################################################################################
 # Импорт необходимых инструментов
 # ######################################################################################################################
-import os    # Работа с файловой системой
-import json  # Кодирование и декодирование данные в удобном формате
+import os                          # Работа с файловой системой
+import xml.parsers.expat as expat  # Анализ XML документа
+import xmltodict                   # Преобразование XML документа в словарь
+import json                        # Кодирование и декодирование данные в удобном формате
 
 from datetime import datetime                # Работа со временем
 from types import ModuleType                 # Тип модуля
 import importlib.resources as pkg_resources  # Работа с ресурсами внутри пакетов
 
 # Персональные
-from liberty.modules.filem.file_manager import FileManager  # Работа с файлами
+from liberty.modules.filem.json_ import Json  # Работа с JSON
 
 
 # ######################################################################################################################
 # Сообщения
 # ######################################################################################################################
-class Messages(FileManager):
+class Messages(Json):
     """Класс для сообщений"""
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -32,18 +34,12 @@ class Messages(FileManager):
     def __init__(self):
         super().__init__()  # Выполнение конструктора из суперкласса
 
-        self._load_data = ' ' * 4 + self._('[{}] Загрузка данных из файла "{}" ...')
-        self._invalid_file = ' ' * 4 + self._('[{}{}{}] Данные не загружены ...')
-        self._load_data_resources = self._('[{}] Загрузка данных из ресурсов "{}" ...')
-        self._load_data_resources_not_found = ' ' * 4 + self._('[{}{}{}] Ресурс не найден ...')
-        self._config_empty = ' ' * 4 + self._('[{}{}{}] Файл пуст ...')
-
 
 # ######################################################################################################################
-# Работа с JSON
+# Работа с XML
 # ######################################################################################################################
-class Json(Messages):
-    """Класс для работы с JSON"""
+class Xml(Messages):
+    """Класс для работы с XML"""
 
     # ------------------------------------------------------------------------------------------------------------------
     # Конструктор
@@ -56,31 +52,30 @@ class Json(Messages):
     #  Внешние методы
     # ------------------------------------------------------------------------------------------------------------------
 
-    # Загрузка JSON файла
-    def load(self, file, create = False, out = True):
+    # Загрузка XML файла
+    def load_xml(self, file, out = True):
         """
-        Загрузка JSON файла
+        Загрузка XML файла
 
-        (str [, bool, bool]) -> dict or None
+        (str [, bool]) -> dict or None
 
         Аргументы:
-            file   - Путь к файлу JSON
-            create - Создание файла JSON в случае его отсутствия
-            out    - Печатать процесс выполнения
+            file - Путь к файлу XML
+            out  - Печатать процесс выполнения
 
-        Возвращает словарь из json файла или None
+        Возвращает словарь из XML файла или None
         """
 
         # Проверка аргументов
-        if type(file) is not str or type(create) is not bool or type(out) is not bool:
+        if type(file) is not str or type(out) is not bool:
             # Вывод сообщения
             if out is True:
-                self._inv_args(__class__.__name__, self.load.__name__)
+                self._inv_args(__class__.__name__, self.load_xml.__name__)
 
             return None
 
-        # Поиск JSON файла не удался
-        if self.search_file(file, 'json', create, out) is False:
+        # Поиск XML файла не удался
+        if super().search_file(file, 'xml', False, out) is False:
             return None
 
         # Вывод сообщения
@@ -88,10 +83,10 @@ class Json(Messages):
             print(self._load_data.format(datetime.now().strftime(self._format_time), os.path.basename(file)))
 
         # Открытие файла
-        with open(file, mode = 'r', encoding = 'utf-8') as json_data_file:
+        with open(file, mode = 'r', encoding = 'utf-8') as xml_data_file:
             try:
-                config = json.load(json_data_file)
-            except json.JSONDecodeError:
+                res = json.loads(json.dumps(xmltodict.parse(xml_data_file.read())))  # Парсинг XML документа
+            except expat.ExpatError:
                 # Вывод сообщения
                 if out is True:
                     print(self._invalid_file.format(self._red, datetime.now().strftime(self._format_time), self._end))
@@ -99,35 +94,35 @@ class Json(Messages):
                 return None
 
         # Файл пуст
-        if len(config) == 0:
+        if len(res) == 0:
             # Печать
             if out is True:
-                print(self._config_empty.format(self._red, datetime.now().strftime(self._format_time), self._end))
+                print(self._config_empty.format(self.red, datetime.now().strftime(self._format_time), self.end))
 
             return None
 
-        return config  # Результат
+        return res  # Результат
 
-    # Загрузка JSON файла из ресурсов модуля
-    def load_resources(self, module, file, out = True):
+    # Загрузка XML файла из ресурсов модуля
+    def load_resources_xml(self, module, file, out = True):
         """
-        Загрузка JSON файла из ресурсов модуля
+        Загрузка XML файла из ресурсов модуля
 
         (module, str [, bool]) -> dict or None
 
         Аргументы:
             module - Модуль
-            file   - Файл JSON
+            file   - Файл XML
             out    - Печатать процесс выполнения
 
-        Возвращает словарь из json файла или None
+        Возвращает словарь из xml файла или None
         """
 
         # Проверка аргументов
         if isinstance(module, ModuleType) is False or type(file) is not str or type(out) is not bool:
             # Вывод сообщения
             if out is True:
-                self._inv_args(__class__.__name__, self.load_resources.__name__)
+                self._inv_args(__class__.__name__, self.load_resources_xml.__name__)
 
             return None
 
@@ -135,7 +130,7 @@ class Json(Messages):
         if out is True:
             print(self._load_data_resources.format(datetime.now().strftime(self._format_time), module.__name__))
 
-        # Ресурс с JSON файлом не найден
+        # Ресурс с XML файлом не найден
         if pkg_resources.is_resource(module, file) is False:
             # Вывод сообщения
             if out is True:
@@ -146,10 +141,10 @@ class Json(Messages):
             return None
 
         # Открытие файла
-        with pkg_resources.open_text(module, file, encoding='utf-8', errors='strict') as json_data_file:
+        with pkg_resources.open_text(module, file, encoding='utf-8', errors='strict') as xml_data_file:
             try:
-                config = json.load(json_data_file)
-            except json.JSONDecodeError:
+                res = json.loads(json.dumps(xmltodict.parse(xml_data_file.read())))  # Парсинг XML документа
+            except expat.ExpatError:
                 # Вывод сообщения
                 if out is True:
                     print(self._invalid_file.format(self.red, datetime.now().strftime(self._format_time), self.end))
@@ -157,11 +152,11 @@ class Json(Messages):
                 return None
 
         # Файл пуст
-        if len(config) == 0:
+        if len(res) == 0:
             # Печать
             if out is True:
                 print(self._config_empty.format(self.red, datetime.now().strftime(self._format_time), self.end))
 
             return None
 
-        return config  # Результат
+        return res  # Результат
