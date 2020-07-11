@@ -6,7 +6,7 @@
 ![PyPI - Status](https://img.shields.io/pypi/status/liberty)
 ![PyPI - License](https://img.shields.io/pypi/l/liberty)
 
-| [История релизов](https://github.com/DmitryRyumin/Liberty/blob/master/README_RU.md) | [Документация на английском](https://github.com/DmitryRyumin/Liberty) |
+| [История релизов](https://github.com/DmitryRyumin/Liberty/blob/master/NOTES_RU.md) | [Документация на английском](https://github.com/DmitryRyumin/Liberty) |
 | --- | --- |
 
 ## Установка
