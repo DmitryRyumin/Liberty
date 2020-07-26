@@ -243,7 +243,7 @@ class Run(Messages):
 
             # Отрисовка скелета на карте глубины
             if key == 'skeleton_depth_tracking':
-                #  Отрисовка скелета
+                # Отрисовка скелета
                 if 'show_depth' in config and config['show_depth'] is True:
                     # Проверка значения
                     if type(val) is not bool:
@@ -262,7 +262,7 @@ class Run(Messages):
 
             # Радиус точек скелетных суставов
             if key == 'skeleton_point_radius':
-                #  Отрисовка скелета
+                # Отрисовка скелета
                 if 'skeleton_tracking' in config and config['skeleton_tracking'] is True:
                     # Проверка значения
                     if type(val) is not int or val < 1 or val > 10:
@@ -273,7 +273,7 @@ class Run(Messages):
             # 1. Цвет фона точек скелетных суставов
             # 2. Цвет обводки фона точек скелетных суставов
             if key == 'skeleton_point_background_color' or key == 'skeleton_outline_color':
-                #  Отрисовка скелета
+                # Отрисовка скелета
                 if 'skeleton_tracking' in config and config['skeleton_tracking'] is True:
                     all_layer_2 = 4  # Общее количество подразделов в текущем разделе
                     curr_valid_layer_2 = 0  # Валидное количество подразделов в текущем разделе
@@ -291,7 +291,7 @@ class Run(Messages):
                         # 1. Красный
                         # 2. Зеленый
                         # 3. Синий
-                        # 3. Прозрачность
+                        # 4. Прозрачность
                         if k == 'red' or k == 'green' or k == 'blue' or k == 'alpha':
                             curr_valid_layer_2 += 1
 
@@ -300,7 +300,7 @@ class Run(Messages):
 
             # Ширина обводки фона точек скелетных суставов
             if key == 'skeleton_outline_size':
-                #  Отрисовка скелета
+                # Отрисовка скелета
                 if 'skeleton_tracking' in config and config['skeleton_tracking'] is True:
                     # Проверка значения
                     if type(val) is not int or val < 0 or val > 10:
@@ -353,7 +353,7 @@ class Run(Messages):
                         # 1. Красный
                         # 2. Зеленый
                         # 3. Синий
-                        # 3. Прозрачность
+                        # 4. Прозрачность
                         if k == 'red' or k == 'green' or k == 'blue' or k == 'alpha':
                             curr_valid_layer_2 += 1
 
@@ -657,41 +657,30 @@ class Run(Messages):
         return True
 
     # Получение ориентиров скелета из Kinect 2
-    def _get_bodies(self, out = True):
+    def _get_bodies(self, draw = True, func = None, out = True):
         """
         Получение ориентиров скелета из Kinect 2
 
-        ([bool]) -> None
+        ([bool, FunctionType, bool]) -> bool
 
         Аргументы:
-           out - Печатать процесс выполнения
+            draw - Отрисовка ориентиров скелета
+            func - Функция или метод
+            out  - Печатать процесс выполнения
+
+        Возвращает: True если операции над кадром произведены, в обратном случае False
         """
 
         # Проверка аргументов
-        if type(out) is not bool:
+        if type(draw) is not bool or type(out) is not bool:
+            # Вывод сообщения
+            if out is True:
+                self._inv_args(__class__.__name__, self._get_bodies.__name__)
+
             return False
 
         # Получение ориентиров скелета из Kinect 2
-        self.get_bodies(
-            show = self._args['skeleton_tracking'],
-            show_lines = self._args['skeleton_tracking_lines'],
-            point_radius = self._args['skeleton_point_radius'],
-            point_background_color = (self._args['skeleton_point_background_color']['red'],
-                                      self._args['skeleton_point_background_color']['green'],
-                                      self._args['skeleton_point_background_color']['blue'],
-                                      self._args['skeleton_point_background_color']['alpha']),
-            outline_color = (self._args['skeleton_outline_color']['red'],
-                             self._args['skeleton_outline_color']['green'],
-                             self._args['skeleton_outline_color']['blue'],
-                             self._args['skeleton_outline_color']['alpha']),
-            outline_size = self._args['skeleton_outline_size'],
-            lines_width = self._args['skeleton_lines_width'],
-            lines_color = (self._args['skeleton_lines_color']['red'],
-                             self._args['skeleton_lines_color']['green'],
-                             self._args['skeleton_lines_color']['blue'],
-                             self._args['skeleton_lines_color']['alpha']),
-            out = out
-        )
+        self.get_bodies(draw = draw, func = func, out = out)
 
         # Отображение надписей в терминале
         if self._args['show_labels'] is False:
@@ -728,25 +717,46 @@ class Run(Messages):
                     out = out
                 )
 
+        return True
+
     # Операции над кадром
-    def _frame_o(self):
+    def _frame_o(self, draw = True, func = None, out = True):
         """
         Операции над кадром
+
+        ([bool, FunctionType, bool]) -> bool
+
+        Аргументы:
+            draw - Отрисовка ориентиров скелета
+            func - Функция или метод
+            out  - Печатать процесс выполнения
+
+        Возвращает: True если операции над кадром произведены, в обратном случае False
         """
 
-        get_depth_frame = self._get_depth_frame()  # Получение карты глубины из Kinect 2
+        # Проверка аргументов
+        if type(draw) is not bool or type(out) is not bool:
+            # Вывод сообщения
+            if out is True:
+                self._inv_args(__class__.__name__, self._frame_o.__name__)
 
-        get_infrared_frame = self._get_infrared_frame()  # Получение инфракрасного кадра из Kinect 2
+            return False
+
+        get_depth_frame = self._get_depth_frame(out)  # Получение карты глубины из Kinect 2
+
+        get_infrared_frame = self._get_infrared_frame(out)  # Получение инфракрасного кадра из Kinect 2
 
         # 1. Карта глубины получена
         # 2. Инфракрасный кадр получен
         if get_depth_frame is True and get_infrared_frame is True:
-            self._get_bodies()  # Получение ориентиров скелета из Kinect 2
+            self._get_bodies(draw = draw, func = func, out = out)  # Получение ориентиров скелета из Kinect 2
 
         # Отображение скелета в окне воспроизведения
         if self._args['show_labels'] is False \
                 and (self._args['skeleton_tracking'] is True or self._args['skeleton_tracking_lines'] is True):
             self._composite()  # Формирование итогового кадра
+
+        return True
 
     # Циклическое получение кадров из видеопотока
     def _loop(self, other_source = None, func = None, out = True):

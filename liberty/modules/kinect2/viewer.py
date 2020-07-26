@@ -12,9 +12,10 @@ import time         # Работа со временем
 import numpy as np  # Научные вычисления
 import cv2          # Алгоритмы компьютерного зрения
 
-from datetime import datetime    # Работа со временем
-from _testcapi import USHRT_MAX  # Максимально доступное число для формата ushort
-from types import ModuleType     # Проверка объектов на модуль, метод, функцию
+from datetime import datetime               # Работа со временем
+from _testcapi import USHRT_MAX             # Максимально доступное число для формата ushort
+from types import ModuleType                # Проверка объектов на модуль, метод, функцию
+from types import FunctionType, MethodType  # Проверка объектов на метод, функцию
 
 # Персональные
 from liberty.modules.kinect2.core.cap import Cap        # Заглушка
@@ -296,7 +297,7 @@ class KinectViewer(Messages):
         ([bool]) -> bool
 
         Аргументы:
-           out - Печатать процесс выполнения
+            out - Печатать процесс выполнения
 
         Возвращает: True если запуск Kinect произведен, в обратном случае False
         """
@@ -372,10 +373,11 @@ class KinectViewer(Messages):
         """
         Получение инфракрасного кадра из Kinect 2
 
-        ([float]) -> None
+        ([float, bool]) -> None
 
         Аргументы:
-           norm - Нормализация значений инфракрасной камеры
+            norm - Нормализация значений инфракрасной камеры
+            out  - Печатать процесс выполнения
         """
 
         # Проверка аргументов
@@ -402,32 +404,159 @@ class KinectViewer(Messages):
         self._curr_frame_infrared = \
             cv2.cvtColor(cv2.convertScaleAbs(out_frame, alpha = 255 / USHRT_MAX), cv2.COLOR_GRAY2RGBA)
 
+    # Отрисовка ориентиров скелета
+    def draw_bodies(self):
+        """
+        Отрисовка ориентиров скелета
+        """
+
+        # Проход по ориентирам скелетов для соединения линиями
+        for key, val in self._skeleton_landmarks_color.items():
+            # Отрисовка линий соединения скелетных суставов
+            if self._args['skeleton_tracking_lines'] is True:
+                # Суставы скелетной модели
+                skeleton_tracking_lines = list(val.values())
+
+                # 1. Отображение карты глубины
+                # 2. Отрисовка скелета на карте глубины
+                if self._args['show_depth'] is True and self._args['skeleton_depth_tracking'] is True:
+                    skeleton_tracking_lines_depth = list(self._skeleton_landmarks_depth[key].values())
+
+                try:
+                    # Пройтись по всем ориентирам скелета, которые получены из XML файла
+                    for landmark_skeleton in self._list_landmarks_skeleton:
+                        # Координата не определена
+                        if skeleton_tracking_lines[landmark_skeleton['a']] is None \
+                                or skeleton_tracking_lines[landmark_skeleton['b']] is None:
+                            continue
+
+                        # 1. Отображение карты глубины
+                        # 2. Отрисовка скелета на карте глубины
+                        if self._args['show_depth'] is True and self._args['skeleton_depth_tracking'] is True:
+                            # Соединение ориентиров скелета линией
+                            self._curr_frame_pil_obj.line(
+                                [self._norm_lines_depth(
+                                    skeleton_tracking_lines_depth[landmark_skeleton['a']]['x'],
+                                    self._scale_depth['width']
+                                ) + self._right_margin,
+                                 self._norm_lines_depth(
+                                     skeleton_tracking_lines_depth[landmark_skeleton['a']]['y'],
+                                     self._scale_depth['height']
+                                 ) + self._args['labels_base_coords_depth_ir']['top'],
+                                 self._norm_lines_depth(
+                                     skeleton_tracking_lines_depth[landmark_skeleton['b']]['x'],
+                                     self._scale_depth['width']
+                                 ) + self._right_margin,
+                                 self._norm_lines_depth(
+                                     skeleton_tracking_lines_depth[landmark_skeleton['b']]['y'],
+                                     self._scale_depth['height']
+                                 ) + self._args['labels_base_coords_depth_ir']['top']],
+                                # Цвет фона точек скелетных суставов
+                                fill = (self._args['skeleton_lines_color']['red'],
+                                        self._args['skeleton_lines_color']['green'],
+                                        self._args['skeleton_lines_color']['blue'],
+                                        self._args['skeleton_lines_color']['alpha']),
+                                # Ширина обводки фона точек скелетных суставов
+                                width = self._args['skeleton_lines_width']
+                            )
+
+                        # Соединение ориентиров скелета линией
+                        self._curr_frame_pil_obj.line(
+                            [skeleton_tracking_lines[landmark_skeleton['a']]['x'],
+                             skeleton_tracking_lines[landmark_skeleton['a']]['y'],
+                             skeleton_tracking_lines[landmark_skeleton['b']]['x'],
+                             skeleton_tracking_lines[landmark_skeleton['b']]['y']],
+                            # Цвет фона точек скелетных суставов
+                            fill = (self._args['skeleton_lines_color']['red'],
+                                    self._args['skeleton_lines_color']['green'],
+                                    self._args['skeleton_lines_color']['blue'],
+                                    self._args['skeleton_lines_color']['alpha']),
+                            width = self._args['skeleton_lines_width']  # Ширина обводки фона точек скелетных суставов
+                        )
+                except KeyError:
+                    pass
+
+            # 1. Отображение карты глубины
+            # 2. Отрисовка скелета на карте глубины
+            # 3. Отрисовка скелета
+            if self._args['skeleton_tracking'] is True and self._args['show_depth'] is True \
+                    and self._args['skeleton_depth_tracking'] is True:
+                # Проход по всем точкам точкам скелета
+                for k, v in self._skeleton_landmarks_depth[key].items():
+                    # Точка не определена
+                    if v is None:
+                        continue
+
+                    self._curr_frame_pil_obj.ellipse(
+                        [self._norm_lines_depth(
+                            v['x'],
+                            self._scale_depth['width']
+                        ) + self._right_margin - self._args['skeleton_point_radius'],
+                         self._norm_lines_depth(
+                             v['y'],
+                             self._scale_depth['height']
+                         ) + self._args['labels_base_coords_depth_ir']['top'] - self._args['skeleton_point_radius'],
+                         self._norm_lines_depth(
+                             v['x'],
+                             self._scale_depth['width']
+                         ) + self._right_margin + self._args['skeleton_point_radius'],
+                         self._norm_lines_depth(
+                             v['y'],
+                             self._scale_depth['height']
+                         ) + self._args['labels_base_coords_depth_ir']['top'] + self._args['skeleton_point_radius']],
+                        # Цвет обводки фона точек скелетных суставов
+                        outline = (self._args['skeleton_outline_color']['red'],
+                                   self._args['skeleton_outline_color']['green'],
+                                   self._args['skeleton_outline_color']['blue'],
+                                   self._args['skeleton_outline_color']['alpha']),
+                        # Цвет фона точек скелетных суставов
+                        fill = (self._args['skeleton_point_background_color']['red'],
+                                self._args['skeleton_point_background_color']['green'],
+                                self._args['skeleton_point_background_color']['blue'],
+                                self._args['skeleton_point_background_color']['alpha']),
+                        width = self._args['skeleton_outline_size']  # Ширина обводки фона точек скелетных суставов
+                    )
+
+            # Отрисовка скелета
+            if self._args['skeleton_tracking'] is True:
+                # Проход по всем точкам точкам скелета
+                for k, v in val.items():
+                    # Точка не определена
+                    if v is None:
+                        continue
+
+                    # Нанесение точки на кадр
+                    self._curr_frame_pil_obj.ellipse(
+                        [v['x'] - self._args['skeleton_point_radius'], v['y'] - self._args['skeleton_point_radius'],
+                         v['x'] + self._args['skeleton_point_radius'], v['y'] + self._args['skeleton_point_radius']],
+                        # Цвет обводки фона точек скелетных суставов
+                        outline = (self._args['skeleton_outline_color']['red'],
+                                 self._args['skeleton_outline_color']['green'],
+                                 self._args['skeleton_outline_color']['blue'],
+                                 self._args['skeleton_outline_color']['alpha']),
+                        # Цвет фона точек скелетных суставов
+                        fill = (self._args['skeleton_point_background_color']['red'],
+                                self._args['skeleton_point_background_color']['green'],
+                                self._args['skeleton_point_background_color']['blue'],
+                                self._args['skeleton_point_background_color']['alpha']),
+                        width = self._args['skeleton_outline_size']  # Ширина обводки фона точек скелетных суставов
+                    )
+
     # Получение ориентиров скелета
-    def get_bodies(self, show, show_lines, point_radius, point_background_color, outline_color, outline_size,
-                   lines_width, lines_color, out = True):
+    def get_bodies(self, draw = True, func = None, out = True):
         """
         Получение ориентиров скелета
 
-        (bool, bool, int, tuple, tuple, int, int, tuple, [, bool])
+        ([bool, FunctionType, bool])
 
         Аргументы:
-            show                   - Отрисовка скелета
-            show_lines             - Отрисовка линий скелета
-            point_radius           - Радиус точек скелетных суставов
-            point_background_color - Цвет фона точек скелетных суставов
-            outline_color          - Цвет обводки фона точек скелетных суставов
-            outline_size           - Ширина обводки фона точек скелетных суставов
-            lines_width            - Толщина линии соединения скелетных суставов
-            lines_color            - Цвет линии соединения скелетных суставов
-            out                    - Печатать процесс выполнения
+            draw - Отрисовка ориентиров скелета
+            func - Функция или метод
+            out  - Печатать процесс выполнения
         """
 
         # Проверка аргументов
-        if (type(show) is not bool or type(show_lines) is not bool or type(point_radius) is not int or point_radius < 1
-                or type(point_background_color) is not tuple or type(outline_color) is not tuple
-                or type(outline_size) is not int or outline_size < 0
-                or type(lines_width) is not int or lines_width < 0
-                or type(lines_color) is not tuple or type(out) is not bool):
+        if type(draw) is not bool or type(out) is not bool:
             # Вывод сообщения
             if out is True:
                 self._inv_args(__class__.__name__, self.get_bodies.__name__)
@@ -443,6 +572,35 @@ class KinectViewer(Messages):
 
         # Ориентиры скелета возможно присутствуют
         if bodies is not None:
+            # Суставы скелетной модели
+            joints_type = {
+                'neck': PyKinectV2.JointType_Neck,                     # Шея
+                'spine_shoulder': PyKinectV2.JointType_SpineShoulder,  # Позвоночник на уровне плеч
+                'spine_mid': PyKinectV2.JointType_SpineMid,            # Позвоночник по центру тела
+                'spine_base': PyKinectV2.JointType_SpineBase,          # Позвоночник на уровне ног (центр таза)
+                'shoulder_right': PyKinectV2.JointType_ShoulderRight,  # Правое плечо
+                'elbow_right': PyKinectV2.JointType_ElbowRight,        # Правый локоть
+                'wrist_right': PyKinectV2.JointType_WristRight,        # Правое запястье
+                'shoulder_left': PyKinectV2.JointType_ShoulderLeft,    # Левое плечо
+                'elbow_left': PyKinectV2.JointType_ElbowLeft,          # Левый локоть
+                'wrist_left': PyKinectV2.JointType_WristLeft,          # Левое запястье
+                'hand_right': PyKinectV2.JointType_HandRight,          # Правая рука
+                'hand_left': PyKinectV2.JointType_HandLeft,            # Левая рука
+                'trumb_right': PyKinectV2.JointType_ThumbRight,        # Большой палец правой руки
+                'hand_tip_right': PyKinectV2.JointType_HandTipRight,   # 4 пальца правой руки
+                'trumb_left': PyKinectV2.JointType_ThumbLeft,          # Большой палец левой руки
+                'hand_tip_left': PyKinectV2.JointType_HandTipLeft,     # 4 пальца левой руки
+                'hip_right': PyKinectV2.JointType_HipRight,            # Правое бедро
+                'knee_right': PyKinectV2.JointType_KneeRight,          # Правое колено
+                'ankle_right': PyKinectV2.JointType_AnkleRight,        # Правая лодыжка
+                'foot_right': PyKinectV2.JointType_FootRight,          # Правая нога
+                'hip_left': PyKinectV2.JointType_HipLeft,              # Левое бедро
+                'knee_left': PyKinectV2.JointType_KneeLeft,            # Левое колено
+                'ankle_left': PyKinectV2.JointType_AnkleLeft,          # Левая лодыжка
+                'foot_left': PyKinectV2.JointType_FootLeft,            # Левая нога
+                'head': PyKinectV2.JointType_Head                      # Голова
+            }
+
             # Пройтись по всем возможным скелетам
             for i in range(0, self.kinect.max_body_count):
                 body = bodies.bodies[i]  # Скелетная модель
@@ -452,8 +610,8 @@ class KinectViewer(Messages):
 
                 self._cnt_bodies += 1  # Увеличение счетчика количества найденных скелетов
 
-                temp_joints_color = {}  # Словарь с найденным скелетом
-                temp_joints_depth = {}  # Словарь с найденным скелетом карты глубины
+                temp_joints_color = {}  # Ориентиры найденного скелета
+                temp_joints_depth = {}  # Ориентиры найденного скелета карты глубины
 
                 joints = body.joints  # Скелетная модель
 
@@ -462,35 +620,6 @@ class KinectViewer(Messages):
 
                 # Получение скелетной модели для карты глубины
                 joint_points_depth = self.kinect.body_joints_to_depth_space(joints)
-
-                # Суставы скелетной модели
-                joints_type = {
-                    'neck': PyKinectV2.JointType_Neck,                     # Шея
-                    'spine_shoulder': PyKinectV2.JointType_SpineShoulder,  # Позвоночник на уровне плеч
-                    'spine_mid': PyKinectV2.JointType_SpineMid,            # Позвоночник по центру тела
-                    'spine_base': PyKinectV2.JointType_SpineBase,          # Позвоночник на уровне ног (центр таза)
-                    'shoulder_right': PyKinectV2.JointType_ShoulderRight,  # Правое плечо
-                    'elbow_right': PyKinectV2.JointType_ElbowRight,        # Правый локоть
-                    'wrist_right': PyKinectV2.JointType_WristRight,        # Правое запястье
-                    'shoulder_left': PyKinectV2.JointType_ShoulderLeft,    # Левое плечо
-                    'elbow_left': PyKinectV2.JointType_ElbowLeft,          # Левый локоть
-                    'wrist_left': PyKinectV2.JointType_WristLeft,          # Левое запястье
-                    'hand_right': PyKinectV2.JointType_HandRight,          # Правая рука
-                    'hand_left': PyKinectV2.JointType_HandLeft,            # Левая рука
-                    'trumb_right': PyKinectV2.JointType_ThumbRight,        # Большой палец правой руки
-                    'hand_tip_right': PyKinectV2.JointType_HandTipRight,   # 4 пальца правой руки
-                    'trumb_left': PyKinectV2.JointType_ThumbLeft,          # Большой палец левой руки
-                    'hand_tip_left': PyKinectV2.JointType_HandTipLeft,     # 4 пальца левой руки
-                    'hip_right': PyKinectV2.JointType_HipRight,            # Правое бедро
-                    'knee_right': PyKinectV2.JointType_KneeRight,          # Правое колено
-                    'ankle_right': PyKinectV2.JointType_AnkleRight,        # Правая лодыжка
-                    'foot_right': PyKinectV2.JointType_FootRight,          # Правая нога
-                    'hip_left': PyKinectV2.JointType_HipLeft,              # Левое бедро
-                    'knee_left': PyKinectV2.JointType_KneeLeft,            # Левое колено
-                    'ankle_left': PyKinectV2.JointType_AnkleLeft,          # Левая лодыжка
-                    'foot_left': PyKinectV2.JointType_FootLeft,            # Левая нога
-                    'head': PyKinectV2.JointType_Head                      # Голова
-                }
 
                 # Проход по всем возможным суставам скелетной модели
                 for key, val in joints_type.items():
@@ -504,110 +633,15 @@ class KinectViewer(Messages):
                 out_joints_color[self._cnt_bodies] = temp_joints_color  # Цветное изображение
                 out_joints_depth[self._cnt_bodies] = temp_joints_depth  # Карта глубины
 
-                # Отрисовка линий соединения скелетных суставов
-                if show_lines is True:
-                    # Суставы скелетной модели
-                    skeleton_tracking_lines = list(temp_joints_color.values())
-
-                    # 1. Отображение карты глубины
-                    # 2. Отрисовка скелета на карте глубины
-                    if self._args['show_depth'] is True and self._args['skeleton_depth_tracking'] is True:
-                        skeleton_tracking_lines_depth = list(temp_joints_depth.values())
-
-                    try:
-                        # Пройтись по всем ориентирам скелета, которые получены из XML файла
-                        for landmark_skeleton in self._list_landmarks_skeleton:
-                            # Координата не определена
-                            if skeleton_tracking_lines[landmark_skeleton['a']] is None \
-                                    or skeleton_tracking_lines[landmark_skeleton['b']] is None:
-                                continue
-
-                            # 1. Отображение карты глубины
-                            # 2. Отрисовка скелета на карте глубины
-                            if self._args['show_depth'] is True and self._args['skeleton_depth_tracking'] is True:
-                                # Соединение ориентиров скелета линией
-                                self._curr_frame_pil_obj.line(
-                                    [self._norm_lines_depth(
-                                        skeleton_tracking_lines_depth[landmark_skeleton['a']]['x'],
-                                        self._scale_depth['width']
-                                    ) + self._right_margin,
-                                     self._norm_lines_depth(
-                                         skeleton_tracking_lines_depth[landmark_skeleton['a']]['y'],
-                                         self._scale_depth['height']
-                                     ) + self._args['labels_base_coords_depth_ir']['top'],
-                                     self._norm_lines_depth(
-                                         skeleton_tracking_lines_depth[landmark_skeleton['b']]['x'],
-                                         self._scale_depth['width']
-                                     ) + self._right_margin,
-                                     self._norm_lines_depth(
-                                         skeleton_tracking_lines_depth[landmark_skeleton['b']]['y'],
-                                         self._scale_depth['height']
-                                     ) + self._args['labels_base_coords_depth_ir']['top']],
-                                    fill = lines_color,  # Цвет фона точек скелетных суставов
-                                    width = lines_width  # Ширина обводки фона точек скелетных суставов
-                                )
-
-                            # Соединение ориентиров скелета линией
-                            self._curr_frame_pil_obj.line(
-                                [skeleton_tracking_lines[landmark_skeleton['a']]['x'],
-                                 skeleton_tracking_lines[landmark_skeleton['a']]['y'],
-                                 skeleton_tracking_lines[landmark_skeleton['b']]['x'],
-                                 skeleton_tracking_lines[landmark_skeleton['b']]['y']],
-                                fill = lines_color,  # Цвет фона точек скелетных суставов
-                                width = lines_width  # Ширина обводки фона точек скелетных суставов
-                            )
-                    except KeyError:
-                        pass
-
-                # 1. Отображение карты глубины
-                # 2. Отрисовка скелета на карте глубины
-                # 3. Отрисовка скелета
-                if show is True and self._args['show_depth'] is True and self._args['skeleton_depth_tracking'] is True:
-                    # Проход по всем точкам точкам скелета
-                    for k, v in temp_joints_depth.items():
-                        # Точка не определена
-                        if v is None:
-                            continue
-
-                        self._curr_frame_pil_obj.ellipse(
-                            [self._norm_lines_depth(
-                                v['x'],
-                                self._scale_depth['width']
-                            ) + self._right_margin - point_radius,
-                             self._norm_lines_depth(
-                                 v['y'],
-                                 self._scale_depth['height']
-                             ) + self._args['labels_base_coords_depth_ir']['top'] - point_radius,
-                             self._norm_lines_depth(
-                                 v['x'],
-                                 self._scale_depth['width']
-                             ) + self._right_margin + point_radius,
-                             self._norm_lines_depth(
-                                 v['y'],
-                                 self._scale_depth['height']
-                             ) + self._args['labels_base_coords_depth_ir']['top'] + point_radius],
-                            outline = outline_color,  # Цвет обводки фона точек скелетных суставов
-                            fill = point_background_color,  # Цвет фона точек скелетных суставов
-                            width = outline_size  # Ширина обводки фона точек скелетных суставов
-                        )
-
-                # Отрисовка скелета
-                if show is True:
-                    # Проход по всем точкам точкам скелета
-                    for k, v in temp_joints_color.items():
-                        # Точка не определена
-                        if v is None:
-                            continue
-
-                        # Нанесение точки на кадр
-                        self._curr_frame_pil_obj.ellipse(
-                            [v['x'] - point_radius, v['y'] - point_radius,
-                             v['x'] + point_radius, v['y'] + point_radius],
-                            outline = outline_color,  # Цвет обводки фона точек скелетных суставов
-                            fill = point_background_color,  # Цвет фона точек скелетных суставов
-                            width = outline_size  # Ширина обводки фона точек скелетных суставов
-                        )
+                # Выполнение функции/метода
+                if func is not None and (type(func) is MethodType or type(func) is FunctionType) and \
+                        self._automatic_update['invalid_config_file'] is False:
+                    func()  # Выполнение операций над изображением
 
         # Ориентиры скелетов
         self._skeleton_landmarks_color = out_joints_color  # Цветная камера
         self._skeleton_landmarks_depth = out_joints_depth  # Карта глубины
+
+        # Отрисовка ориентиров скелета
+        if draw is True:
+            self.draw_bodies()  # Отрисовка ориентиров скелета

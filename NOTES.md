@@ -1,5 +1,17 @@
 # Liberty - Real-time computer vision
 
+## July 26, 2020
+
+> `1.0.3`
+
+<h4><span style="color:#008000;">What's new</span></h4>
+
+- New module [amir](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/modules/amir/README_RU.md) for the assistive mobile information robot control by automatic gesture recognition (**Note!** Requires Windows operating system >= 8.0)
+
+<h4><span style="color:#DB534F;">Fixed bugs</span></h4>
+
+- Fixed minor bugs
+
 ## July 11, 2020
 
 > `1.0.2`

@@ -15,6 +15,10 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
+#: liberty\modules\amir\gesture_recognizer.py:30
+msgid "Управление ассистивным мобильным информационным роботом посредством автоматического распознавания жестовой информации"
+msgstr ""
+
 #: liberty\modules\core\config.py:168
 msgid ""
 "[{}] Запуск: \n"

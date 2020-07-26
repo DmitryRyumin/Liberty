@@ -69,6 +69,7 @@ with open('README.md', 'r') as fh:
             'console_scripts': [
                 'liberty_play = liberty.samples.play:main',
                 'liberty_kinect2play = liberty.samples.kinect2play:main',
+                'liberty_amir_play = liberty.samples.amir_play:main',
             ],
         },
     )

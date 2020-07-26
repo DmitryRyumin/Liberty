@@ -278,7 +278,7 @@ class Run(Messages):
                     # 1. Красный
                     # 2. Зеленый
                     # 3. Синий
-                    # 3. Прозрачность
+                    # 4. Прозрачность
                     if k == 'red' or k == 'green' or k == 'blue' or k == 'alpha':
                         curr_valid_layer_2 += 1
 
