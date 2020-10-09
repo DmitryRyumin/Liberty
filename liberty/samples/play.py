@@ -618,7 +618,7 @@ class Run(Messages):
         frame = None  # Кадр
 
         # Передана директория
-        if os.path.isdir(self._args['file']) is True:
+        if type(self._args['file']) is not int or os.path.isdir(self._args['file']) is True:
             # Поиск файлов
             self._photo_files = self.search_files(
                 self._args['file'], self._supported_photo_formats, sort = True, out = out
