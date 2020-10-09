@@ -58,6 +58,8 @@ class Viewer(Messages):
         move_window_y = 30,  # Перемещение окна по оси Y
         clear_image_buffer = True,  # Очистка буфера с изображением
         repeat = False,  # Повтор видеофайла
+        next_photo = False,  # Следующий фото файл
+        prev_photo = False,  # Предыдущий фото файл
         alpha = True,  # Альфа-канал
         out = True  # Печатать процесс выполнения
     ):
@@ -77,6 +79,9 @@ class Viewer(Messages):
         self.clear_image_buffer = clear_image_buffer
 
         self.repeat = repeat
+
+        self.next_photo = next_photo
+        self.prev_photo = prev_photo
 
         self.alpha = alpha
 
@@ -192,6 +197,26 @@ class Viewer(Messages):
     @repeat.setter
     def repeat(self, r):
         self._repeat = r
+
+    # Получение результата переключения на следующий фото файл
+    @property
+    def next_photo(self):
+        return self._next_photo
+
+    # Установка результата переключения на следующий фото файл
+    @next_photo.setter
+    def next_photo(self, nextp):
+        self._next_photo = nextp
+
+    # Получение результата переключения на предыдущий фото файл
+    @property
+    def prev_photo(self):
+        return self._prev_photo
+
+    # Установка результата переключения на предыдущий фото файл
+    @prev_photo.setter
+    def prev_photo(self, prevp):
+        self._prev_photo = prevp
 
     # Получение альфа-канала
     @property
@@ -344,6 +369,14 @@ class Viewer(Messages):
             key = ord(key)
         else:
             key = 0x0100 + key
+
+        #  Клавиша > (использовать chr(358))
+        if key == 358 or key == bytes('Ŧ', 'utf-8'):
+            self.next_photo = True  # Переключение на следующий фото файл
+
+        #  Клавиша <
+        if key == 356 or key == bytes('Ť', 'utf-8'):
+            self.prev_photo = True  # Переключение на предыдущий фото файл
 
         #  Клавиша r
         if key == 114 or key == b'r':

@@ -8,8 +8,9 @@
 # ######################################################################################################################
 # Импорт необходимых инструментов
 # ######################################################################################################################
-import os      # Работа с файловой системой
-import shutil  # Набор функций высокого уровня для обработки файлов, групп файлов, и папок
+import os                 # Работа с файловой системой
+import shutil             # Набор функций высокого уровня для обработки файлов, групп файлов, и папок
+from pathlib import Path  # Работа с путями в файловой системе
 
 from datetime import datetime  # Работа со временем
 
@@ -36,6 +37,10 @@ class Messages(core.Core):
         self._file_not_found = ' ' * 4 + self._('[{}{}{}] Файл "{}" не найден ...')
         self._file_not_found_create = ' ' * 4 + self._('[{}] Файл "{}" не найден, но был создан ...')
         self._wrong_extension = ' ' * 4 + self._('[{}{}{}] Расширение файла должно быть "{}" ...')
+
+        self._files_load = self._('[{}] Поиск файлов с расширениями "{}" в директории "{}" ...')
+        self._dir_name = self._('[{}{}{}] Необходимо указать название директории ...')
+        self._files_not_found = ' ' * 4 + self._('[{}{}{}] В указанной директории необходимые файлы не найдены ...')
 
         self._clear_folder = self._('[{}] Очистка директории "{}" ...')
         self._clear_folder_not_found = ' ' * 4 + self._('[{}{}{}] Директория "{}" не найдена ...')
@@ -139,6 +144,66 @@ class FileManager(Messages):
             return False
 
         return True  # Результат
+
+    # Поиск файлов в указанной директории
+    def search_files(self, folder, extension, sort = True, out = True):
+        """
+        Поиск файлов в указанной директории
+
+        (str, tuple [, bool, bool]) -> tuple or None
+
+        Аргументы:
+            file      - Путь к файлам
+            extension - Расширение файлов
+            sort      - Сортировать файлы
+            out       - Печатать процесс выполнения
+
+        Возвращает кортеж c файлами, в обратном случае None
+        """
+
+        # Проверка аргументов
+        if type(folder) is not str or type(extension) is not tuple or len(extension) == 0 \
+                or type(sort) is not bool or type(out) is not bool:
+            # Вывод сообщения
+            if out is True:
+                self._inv_args(__class__.__name__, self.search_files.__name__)
+
+            return None
+
+        # Директория не передана
+        if os.path.isdir(folder) is False:
+            # Вывод сообщения
+            if out is True:
+                print(self._dir_name.format(
+                    self.red, datetime.now().strftime(self._format_time), self.end
+                ))
+
+            return None
+
+        # Вывод сообщения
+        if out is True:
+            print(self._files_load.format(
+                datetime.now().strftime(self._format_time), ', '.join(x for x in extension), self._args['file']
+            ))
+
+        # Список из файлов с необходимым расширением
+        files = [
+            str(p.resolve()) for p in Path(self._args['file']).glob('*') if p.suffix.replace('.', '') in extension
+        ]
+
+        # В указанной директории не найдены необходимые файлы
+        if len(files) is 0:
+            # Вывод сообщения
+            if out is True:
+                print(self._files_not_found.format(self.red, datetime.now().strftime(self._format_time), self.end))
+
+            return None
+
+        # Сортировка файлов
+        if sort is True:
+            return sorted(files)
+
+        return files
 
     # Очистка директории
     def clear_folder(self, path, out = True):

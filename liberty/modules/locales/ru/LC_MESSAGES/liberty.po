@@ -1,25 +1,21 @@
-# oidv6 Russian translation.
-# Copyright (C) 2020 Dmitry Ryumin
-# Dmitry Ryumin <dl_03.03.1991@mail.ru>, 2020.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2020-07-06 07:27+0300\n"
-"PO-Revision-Date: 2020-07-06 07:34+0300\n"
-"Last-Translator: Dmitry Ryumin <dl_03.03.1991@mail.ru>\n"
-"Language-Team: Russian <dl_03.03.1991@mail.ru>\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2020-10-09 17:11+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: liberty\modules\amir\gesture_recognizer.py:30
-msgid "Управление ассистивным мобильным информационным роботом посредством автоматического распознавания жестовой информации"
-msgstr ""
-
-#: liberty\modules\core\config.py:168
+#: liberty/modules/core/config.py:168
 msgid ""
 "[{}] Запуск: \n"
 "    Автор: {}\n"
@@ -28,190 +24,195 @@ msgid ""
 "    Версия: {}"
 msgstr ""
 
-#: liberty\modules\core\config.py:177
+#: liberty/modules/core/config.py:177
 msgid "[{}{}{}] Неверные типы аргументов в \"{}\" ..."
 msgstr ""
 
-#: liberty\modules\core\config.py:179
+#: liberty/modules/core/config.py:179
 msgid "[{}{}{}] Необходимые значения в командной строке не найдены ..."
 msgstr ""
 
-#: liberty\modules\filem\file_manager.py:33
+#: liberty/modules/filem/file_manager.py:34
 msgid "[{}] Поиск \"{}\" файла ..."
 msgstr ""
 
-#: liberty\modules\filem\file_manager.py:34
+#: liberty/modules/filem/file_manager.py:35
 msgid "[{}{}{}] Необходимо указать название файла с расширением \"{}\" ..."
 msgstr ""
 
-#: liberty\modules\filem\file_manager.py:35
+#: liberty/modules/filem/file_manager.py:36
 msgid "[{}{}{}] Вместо файла передана директория ..."
 msgstr ""
 
-#: liberty\modules\filem\file_manager.py:36
+#: liberty/modules/filem/file_manager.py:37 liberty/samples/play.py:59
 msgid "[{}{}{}] Файл \"{}\" не найден ..."
 msgstr ""
 
-#: liberty\modules\filem\file_manager.py:37
+#: liberty/modules/filem/file_manager.py:38
 msgid "[{}] Файл \"{}\" не найден, но был создан ..."
 msgstr ""
 
-#: liberty\modules\filem\file_manager.py:38
+#: liberty/modules/filem/file_manager.py:39
 msgid "[{}{}{}] Расширение файла должно быть \"{}\" ..."
 msgstr ""
 
-#: liberty\modules\filem\file_manager.py:40
+#: liberty/modules/filem/file_manager.py:41
+msgid "[{}] Поиск файлов с расширениями \"{}\" в директории \"{}\" ..."
+msgstr ""
+
+#: liberty/modules/filem/file_manager.py:42
+msgid "[{}{}{}] Необходимо указать название директории ..."
+msgstr ""
+
+#: liberty/modules/filem/file_manager.py:43
+msgid "[{}{}{}] В указанной директории необходимые файлы не найдены ..."
+msgstr ""
+
+#: liberty/modules/filem/file_manager.py:45
 msgid "[{}] Очистка директории \"{}\" ..."
 msgstr ""
 
-#: liberty\modules\filem\file_manager.py:41
+#: liberty/modules/filem/file_manager.py:46
 msgid "[{}{}{}] Директория \"{}\" не найдена ..."
 msgstr ""
 
-#: liberty\modules\filem\json_.py:35
+#: liberty/modules/filem/json_.py:35
 msgid "[{}] Загрузка данных из файла \"{}\" ..."
 msgstr ""
 
-#: liberty\modules\filem\json_.py:36
+#: liberty/modules/filem/json_.py:36
 msgid "[{}{}{}] Данные не загружены ..."
 msgstr ""
 
-#: liberty\modules\filem\json_.py:37
+#: liberty/modules/filem/json_.py:37
 msgid "[{}] Загрузка данных из ресурсов \"{}\" ..."
 msgstr ""
 
-#: liberty\modules\filem\json_.py:38
+#: liberty/modules/filem/json_.py:38
 msgid "[{}{}{}] Ресурс не найден ..."
 msgstr ""
 
-#: liberty\modules\filem\json_.py:39
+#: liberty/modules/filem/json_.py:39
 msgid "[{}{}{}] Файл пуст ..."
 msgstr ""
 
-#: liberty\modules\kinect2\core\cap.py:33
-msgid "[{}{}{}] Требуется операционная система Windows"
-msgstr ""
-
-#: liberty\modules\kinect2\viewer.py:49
-msgid "Воспроизведение видеоданных из сенсора Kinect 2"
-msgstr ""
-
-#: liberty\modules\kinect2\viewer.py:52
-msgid "[{}] Запуск сенсора Kinect 2 ..."
-msgstr ""
-
-#: liberty\modules\kinect2\viewer.py:54
-msgid "[{}{}{}] Достигнут лимит ожидания запуска сенсора Kinect 2 в {} секунд ..."
-msgstr ""
-
-#: liberty\modules\pvv\viewer.py:36
+#: liberty/modules/pvv/viewer.py:36
 msgid "[{}{}{}] Данные не получены ..."
 msgstr ""
 
-#: liberty\modules\pvv\viewer.py:37
+#: liberty/modules/pvv/viewer.py:37
 msgid "[{}] Программа закрыта ..."
 msgstr ""
 
-#: liberty\samples\kinect2play.py:39
-msgid "Ошибка! Карта глубины не получена ..."
-msgstr ""
-
-#: liberty\samples\kinect2play.py:40
-msgid "Ошибка! Инфракрасный кадр не получен ..."
-msgstr ""
-
-#: liberty\samples\kinect2play.py:43
-msgid "Людей: {}"
-msgstr ""
-
-#: liberty\samples\play.py:46
+#: liberty/samples/play.py:48
 msgid "Воспроизведение фото/видео данных"
 msgstr ""
 
-#: liberty\samples\play.py:50
+#: liberty/samples/play.py:52
 msgid "[{}] Запуск WEB камеры ..."
 msgstr ""
 
-#: liberty\samples\play.py:51
+#: liberty/samples/play.py:53
 msgid "[{}{}{}] Для запуска WEB-камеры необходимо указать --file {} ..."
 msgstr ""
 
-#: liberty\samples\play.py:52
+#: liberty/samples/play.py:54
 msgid "[{}] Запуск видео ..."
 msgstr ""
 
-#: liberty\samples\play.py:53
+#: liberty/samples/play.py:55
 msgid "[{}] Отображение фото ..."
 msgstr ""
 
-#: liberty\samples\play.py:54
+#: liberty/samples/play.py:56
 msgid "[{}{}{}] WEB-камера не найдена ..."
 msgstr ""
 
-#: liberty\samples\play.py:55
+#: liberty/samples/play.py:57
 msgid "[{}{}{}] Видео повреждено ..."
 msgstr ""
 
-#: liberty\samples\play.py:56
+#: liberty/samples/play.py:58
 msgid "[{}{}{}] Фото повреждено ..."
 msgstr ""
 
-#: liberty\samples\play.py:61
-msgid "[{}{}{}] Расширение файла для фото должно быть одним из:"
+#: liberty/samples/play.py:60
+msgid "Фото \"{}\" не найдено"
 msgstr ""
 
-#: liberty\samples\play.py:65
+#: liberty/samples/play.py:61
+msgid "Фото \"{}\" повреждено"
+msgstr ""
+
+#: liberty/samples/play.py:66
+msgid "[{}{}{}] Расширение файла должно быть одним из:"
+msgstr ""
+
+#: liberty/samples/play.py:70
 msgid "повтор"
 msgstr ""
 
-#: liberty\samples\play.py:67
+#: liberty/samples/play.py:72
 msgid "[{}] Проверка данных на валидность ..."
 msgstr ""
 
-#: liberty\samples\play.py:68
+#: liberty/samples/play.py:73
 msgid "[{}] Загрузка шрифта ..."
 msgstr ""
 
-#: liberty\samples\play.py:69
+#: liberty/samples/play.py:74
 msgid "[{}{}{}] Шрифт не найден ..."
 msgstr ""
 
-#: liberty\samples\play.py:70
+#: liberty/samples/play.py:75
 msgid "[{}{}{}] Шрифт не загружен ..."
 msgstr ""
 
-#: liberty\samples\play.py:72
+#: liberty/samples/play.py:77
 msgid "Ошибка в конфигурационном файле ..."
 msgstr ""
 
-#: liberty\samples\play.py:73
+#: liberty/samples/play.py:78
 msgid "Информация отображается в окне воспроизведения ..."
 msgstr ""
 
-#: liberty\samples\play.py:160 liberty\samples\play.py:162
+#: liberty/samples/play.py:80
+msgid "[{}] Поиск первого файла (\"{}\") из {} ..."
+msgstr ""
+
+#: liberty/samples/play.py:82 liberty/samples/play.py:83
+msgid "{} из {}"
+msgstr ""
+
+#: liberty/samples/play.py:85
+msgid "{}×{}"
+msgstr ""
+
+#: liberty/samples/play.py:182 liberty/samples/play.py:185
 msgid "ФАЙЛ"
 msgstr ""
 
-#: liberty\samples\play.py:161
-msgid "Путь к фото/видео файлу, значение по умолчанию:"
+#: liberty/samples/play.py:183
+msgid "Путь к фото/видео файлу  или каталогу с фото файлами, значение по умолчанию:"
 msgstr ""
 
-#: liberty\samples\play.py:163
+#: liberty/samples/play.py:186
 msgid "Путь к конфигурационному файлу"
 msgstr ""
 
-#: liberty\samples\play.py:164
+#: liberty/samples/play.py:187
 msgid "ЦЕЛОЕ_ЧИСЛО"
 msgstr ""
 
-#: liberty\samples\play.py:166
+#: liberty/samples/play.py:189
 msgid "Через какое количество шагов проверять конфигурационный файл (работает при --automatic_update, значение по умолчанию:"
 msgstr ""
 
-#: liberty\samples\play.py:170
+#: liberty/samples/play.py:193
 msgid "Автоматическая проверка конфигурационного файла в момент работы программы (работает при заданном"
 msgstr ""
 
-#: liberty\samples\play.py:173
+#: liberty/samples/play.py:196
 msgid "Не очищать консоль перед выполнением"
 msgstr ""
+

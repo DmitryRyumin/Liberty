@@ -8,7 +8,7 @@
 | Argument&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Type | Description | Valid Values |
 | -------------------------- | ---  | -------- | ------------------- |
 | command | str | Language<br>`Default value: en` | `en`<br>`ru` |
-| --file | str | Path to photo/video file<br>`Default value: 0` | - |
+| --file | str | Path to photo/video file or folder with photo files<br>`Default value: 0` | - |
 | --config | str | Path to configuration file | - |
 | --frames_to_update | int | How many steps to check the configuration file (works with `--automatic_update`)<br>`Default value: 25` | From `0` to `∞` |
 | --automatic_update | bool | Automatic verification of the configuration file at the time the program is running (it works with `--config`) | No value |
@@ -23,6 +23,10 @@
 | hide_metadata | bool | Hide metadata | - |
 | window_name | str | Window name | - |
 | resize | dict | Window size for resize | From `0` to `∞` |
+| switch_text_color | dict | Text color of error notification texts when switching photos | From `0` to `255` |
+| switch_size | int | Font size for error notification texts when switching photos | From `1` to `60` |
+| switch_stroke | int | Stroke width for error notification texts when switching photos | From `0` to `4` |
+| switch_stroke_color | int | Stroke color for error notifications texts when switching photos | From `0` to `255` |
 | info_text_color | dict | Text color of information notifications | From `0` to `255` |
 | info_background_color | dict | Background color of information notifications | From `0` to `255` |
 | info_size | int | Font size for information notification | From `1` to `60` |
@@ -30,7 +34,7 @@
 | info_stroke_color | int | Stroke color for informational notifications text | From `0` to `255` |
 | error_text_color | dict | Text color of error notifications | From `0` to `255` |
 | error_background_color | dict | Background color of error notifications | From `0` to `255` |
-| error_size | int | Font size for error notification | From `1` to `60` |
+| error_size | int | Font size for error notifications | From `1` to `60` |
 | error_stroke | int | Stroke width for error notifications | From `0` to `4` |
 | error_stroke_color | int | Stroke color for error notifications text | From `0` to `255` |
 | repeat_text_color | dict | Text color of repeat playing | From `0` to `255` |
@@ -53,6 +57,8 @@
 | ------------ | --------- |
 | `esc` | Closing the app window |
 | `r` | Repeat video stream playback |
+| `> (right arrow)` | Switch to next photo file |
+| `> (left arrow)` | Switch to previous photo file |
 
 <h4 align="center"><span style="color:#EC256F;">Examples</span></h4>
 
@@ -60,9 +66,9 @@
 
 >  **Note!** Supported Formats
 
-| Video | Photo |
-| ----- | ----- |
-| `mp4` and `avi` | `png` and `jpg` |
+| Video | Photo | Directories |
+| ----- | ----- | ----------- |
+| `mp4` and `avi` | `png` and `jpg` | With `png` and `jpg` files |
 
 ---
 
@@ -80,4 +86,12 @@
     >
     > ```shell script
     > liberty_play en --file 0 --config path_to_config_file --automatic_update --frames_to_update 50
+    > ```
+
+3. Playing photo files with automatic update of the configuration file (Language: `Russian`)
+
+    > CMD
+    >
+    > ```shell script
+    > liberty_play ru --file path_to_directory_photo_files --config path_to_config_file --automatic_update
     > ```

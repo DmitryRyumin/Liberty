@@ -10,8 +10,8 @@ if sys.version_info[:2] < MIN_PYTHON_VERSION:
 import liberty
 
 REQUIRED_PACKAGES = [
-    'numpy >= 1.18.4',
-    'opencv-contrib-python >= 4.2.0.34',
+    'numpy >= 1.18.5',
+    'opencv-contrib-python >= 4.4.0.42',
     'PyOpenGL >= 3.1.5',
     'PyOpenGL-accelerate >= 3.1.5',
     'Pillow >= 7.1.2',
@@ -68,8 +68,6 @@ with open('README.md', 'r') as fh:
         entry_points = {
             'console_scripts': [
                 'liberty_play = liberty.samples.play:main',
-                'liberty_kinect2play = liberty.samples.kinect2play:main',
-                'liberty_amir_play = liberty.samples.amir_play:main',
             ],
         },
     )

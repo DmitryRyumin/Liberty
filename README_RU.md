@@ -40,8 +40,8 @@ pip install --upgrade liberty
 
 | Пакет | Минимальная версия | Текущая версия |
 | ----- | ------------------ | -------------- |
-`numpy` | `1.18.4` | ![PyPI](https://img.shields.io/pypi/v/numpy) |
-`opencv-contrib-python` | `4.2.0.34` | ![PyPI](https://img.shields.io/pypi/v/opencv-contrib-python) |
+`numpy` | `1.18.5` | ![PyPI](https://img.shields.io/pypi/v/numpy) |
+`opencv-contrib-python` | `4.4.0.42` | ![PyPI](https://img.shields.io/pypi/v/opencv-contrib-python) |
 `PyOpenGL` | `3.1.5` | ![PyPI](https://img.shields.io/pypi/v/PyOpenGL) |
 `PyOpenGL-accelerate` | `3.1.5` | ![PyPI](https://img.shields.io/pypi/v/PyOpenGL-accelerate) |
 `Pillow` | `7.1.2` | ![PyPI](https://img.shields.io/pypi/v/Pillow) |
@@ -57,5 +57,3 @@ pip install --upgrade liberty
 | [core](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/core) | Ядро модулей | | |
 | [filem](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/filem) | Работа с файлами | | |
 | [pvv](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/modules/pvv/README_RU.md) | Воспроизведение фото/видео данных | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/pvv.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/play.py) |
-| [kinect2](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/modules/kinect2/README_RU.md) | Воспроизведение видеоданных из сенсора Kinect 2<br><br>**Примечание!** Требуется операционная система Windows >= 8.0 | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/kinect2.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/kinect2play.py) |
-| [amir](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/modules/amir/README_RU.md) | Управление ассистивным мобильным информационным роботом посредством автоматического распознавания жестовой информации<br><br>**Примечание!** Требуется операционная система Windows >= 8.0 | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/amir.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/amir_play.py) |

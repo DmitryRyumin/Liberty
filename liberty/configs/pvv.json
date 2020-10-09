@@ -5,6 +5,20 @@
         "width": 1280,
         "height": 720
     },
+    "switch_text_color" : {
+        "red": 255,
+        "green": 255,
+        "blue": 255,
+        "alpha": 255
+    },
+    "switch_size": 30,
+    "switch_stroke" : 0,
+    "switch_stroke_color" : {
+        "red": 255,
+        "green": 255,
+        "blue": 255,
+        "alpha": 255
+    },
     "info_text_color" : {
         "red": 46,
         "green": 46,
@@ -37,7 +51,7 @@
         "blue": 24,
         "alpha": 255
     },
-    "error_size": 32,
+    "error_size": 20,
     "error_stroke" : 0,
     "error_stroke_color" : {
         "red": 255,
@@ -57,7 +71,7 @@
         "blue": 103,
         "alpha": 255
     },
-    "repeat_size": 120,
+    "repeat_size": 100,
     "repeat_stroke" : 2,
     "repeat_stroke_color" : {
        "red": 255,
@@ -73,7 +87,7 @@
     "labels_distance": 10,
     "clear_image_buffer": true,
     "real_time": true,
-    "repeat": false,
+    "repeat": true,
     "fps": 60,
     "show_labels": true
 }

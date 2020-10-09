@@ -1,5 +1,22 @@
 # Liberty - Real-time computer vision
 
+## October 9, 2020
+
+> `1.1.0`
+
+<h4><span style="color:#008000;">What's new</span></h4>
+
+- Added viewing of images from the specified directory with the ability to cycle through them
+
+<h4><span style="color:#247CB4;">Changes</span></h4>
+
+- Removed modules `kinect2` and `amir`
+- Updated require packages
+
+<h4><span style="color:#DB534F;">Fixed bugs</span></h4>
+
+- Fixed typos
+
 ## July 26, 2020
 
 > `1.0.3`
