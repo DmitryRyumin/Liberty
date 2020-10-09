@@ -7,7 +7,7 @@ __title__ = 'Liberty'
 __summary__ = 'Liberty - Real-time computer vision'
 __uri__ = 'https://github.com/DmitryRyumin/Liberty'
 
-__version__ = '1.0.3'
+__version__ = '1.1.0'
 
 __author__ = 'Dmitry Ryumin'
 __email__ = 'dl_03.03.1991@mail.ru'
