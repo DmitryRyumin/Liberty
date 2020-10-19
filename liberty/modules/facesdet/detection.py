@@ -462,7 +462,7 @@ class Detection(Messages):
         # Координаты ограничивающего прямоугольника найденного лица
         left = left - padding_x if left - padding_x > 0 else 0
         top = top - padding_y if top - padding_y > 0 else 0
-        right = right + padding_x if top + padding_x < self._curr_frame.shape[1] \
+        right = right + padding_x if right + padding_x < self._curr_frame.shape[1] \
             else self._curr_frame.shape[1] - self._args['face_rectangle_outline_size']
         bottom = bottom + padding_y if bottom + padding_y < self._curr_frame.shape[0] \
             else self._curr_frame.shape[0] - self._args['face_rectangle_outline_size']

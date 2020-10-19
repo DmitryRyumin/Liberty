@@ -2,7 +2,7 @@
 
 ## October 19, 2020
 
-> `1.2.0`
+> `1.2.1`
 
 <h4><span style="color:#008000;">What's new</span></h4>
 
