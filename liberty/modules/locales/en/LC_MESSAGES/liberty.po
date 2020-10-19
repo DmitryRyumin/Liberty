@@ -1,12 +1,12 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR ORGANIZATION
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# liberty English translation.
+# Copyright (C) 2020 Dmitry Ryumin
+# Dmitry Ryumin <dl_03.03.1991@mail.ru>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2020-10-09 17:11+0300\n"
-"PO-Revision-Date: 2020-10-09 17:11+0300\n"
+"POT-Creation-Date: 2020-10-18 23:23+0300\n"
+"PO-Revision-Date: 2020-10-18 23:23+0300\n"
 "Last-Translator: Dmitry Ryumin <dl_03.03.1991@mail.ru>\n"
 "Language-Team: English <dl_03.03.1991@mail.ru>\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +36,34 @@ msgstr "[{}{}{}] Invalid argument types in \"{}\" ..."
 #: liberty/modules/core/config.py:179
 msgid "[{}{}{}] Необходимые значения в командной строке не найдены ..."
 msgstr "[{}{}{}] Required command line values not found ..."
+
+#: liberty/modules/facesdet/detection.py:36
+msgid "Детектирование лиц"
+msgstr "Faces detection"
+
+#: liberty/modules/facesdet/detection.py:39
+msgid "[{}] Загрузка модели \"{}\" ..."
+msgstr "[{}] Loading the model \"{}\" ..."
+
+#: liberty/modules/facesdet/detection.py:40
+msgid "[{}{}{}] Модель \"{}\" не загружена ..."
+msgstr "[{}{}{}] Model \"{}\" not loaded ..."
+
+#: liberty/modules/facesdet/detection.py:41
+msgid "Лиц: {}"
+msgstr "Faces: {}"
+
+#: liberty/modules/facesdet/detection.py:42
+msgid "Лица не найдены ..."
+msgstr "No faces found ..."
+
+#: liberty/modules/facesdet/detection.py:59
+msgid "Метод"
+msgstr "Method"
+
+#: liberty/modules/facesdet/detection.py:73
+msgid "Детектирование лиц с помощью глубокого обучения в OpenCV"
+msgstr "Faces detection with deep learning in OpenCV"
 
 #: liberty/modules/filem/file_manager.py:34
 msgid "[{}] Поиск \"{}\" файла ..."
@@ -198,7 +226,7 @@ msgid "ФАЙЛ"
 msgstr "FILE"
 
 #: liberty/samples/play.py:183
-msgid "Путь к фото/видео файлу  или каталогу с фото файлами, значение по умолчанию:"
+msgid "Путь к фото/видео файлу или каталогу с фото файлами, значение по умолчанию:"
 msgstr "Path to photo/video file or folder with photo files, default value:"
 
 #: liberty/samples/play.py:186

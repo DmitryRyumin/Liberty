@@ -31,7 +31,8 @@ class Messages(core.Core):
     def __init__(self):
         super().__init__()  # Выполнение конструктора из суперкласса
 
-        self._file_load = self._('[{}] Поиск "{}" файла ...')
+        self._file_load_hide = self._('[{}] Поиск "{}" файла ...')
+        self._file_load = self._file_load_hide
         self._file_name = self._('[{}{}{}] Необходимо указать название файла с расширением "{}" ...')
         self._dir_found = self._('[{}{}{}] Вместо файла передана директория ...')
         self._file_not_found = ' ' * 4 + self._('[{}{}{}] Файл "{}" не найден ...')
@@ -108,6 +109,8 @@ class FileManager(Messages):
         # Вывод сообщения
         if out is True:
             print(self._file_load.format(datetime.now().strftime(self._format_time), os.path.basename(file)))
+
+        self._file_load = self._file_load_hide  # Установка сообщения в исходное состояние
 
         _, ext = os.path.splitext(file)  # Расширение файла
 

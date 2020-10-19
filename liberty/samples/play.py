@@ -62,8 +62,8 @@ class Messages(Viewer):
         self._frame_rate_static = 'FPS: 60+'
 
         self._wrong_extension_pvdata = (self._('[{}{}{}] Расширение файла должно быть одним из:') +
-                                 '\n' + ' ' * 4 + '"{}" (фото данные)' +
-                                 '\n' + ' ' * 4 + '"{}" (видео данные)')
+                                        '\n' + ' ' * 4 + '"{}" (фото данные)' +
+                                        '\n' + ' ' * 4 + '"{}" (видео данные)')
 
         self._repeat_video = ['R', self._('повтор')]
 
@@ -108,15 +108,18 @@ class Run(Messages):
         # Поддерживаемые фото форматы
         self._supported_photo_formats = ('png', 'jpg')
 
+        # Шрифты
+        #    1. Для ошибок при переключении фото
+        #    2. Для общих уведомлений
+        #    3. Для ошибок
+        #    4. Для повтора
+        self._fonts = ['switch', 'info', 'error', 'repeat']
+
         #  Информация по шрифту
         self._font = {
             'path': pkg_resources.resource_filename('liberty', 'configs/fonts'),  # Путь к шрифтам
             'name': 'SegoeUI.ttf',  # Шрифт
             'full_path': None,  # Полный путь к шрифту
-            'switch': None,  # Шрифт для ошибок при переключении фото
-            'info': None,  # Шрифт для общих уведомлений
-            'error': None,  # Шрифт для ошибок
-            'repeat': None  # Шрифт для повтора
         }
 
         self._cap = None  # Захват фото/видеоданных
@@ -152,6 +155,7 @@ class Run(Messages):
         self._switch_file = False
 
         self._stdout = ''  # Последняя запись в терминале
+        self._curr_stdout = ''  # Текущая запись в терминале
         self._switch_notification = ''  # Ошибка при переключении на следующее/предыдущее фото
 
         self._fps_point2 = None  # Координаты нижней левой точки (метка FPS)
@@ -178,7 +182,7 @@ class Run(Messages):
 
         # Добавление аргументов в парсер командной строки
         self._ap.add_argument('--file', default = 0, metavar = self._('ФАЙЛ'),
-                              help = self._('Путь к фото/видео файлу  или каталогу с фото файлами, '
+                              help = self._('Путь к фото/видео файлу или каталогу с фото файлами, '
                                             'значение по умолчанию:') + ' %(default)s)')
         self._ap.add_argument('--config', metavar = self._('ФАЙЛ'),
                               help = self._('Путь к конфигурационному файлу'))
@@ -252,7 +256,7 @@ class Run(Messages):
 
             # Размер окна для масштабирования
             if key == 'resize':
-                all_layer_2 = 1  # Общее количество подразделов в текущем разделе
+                all_layer_2 = 2  # Общее количество подразделов в текущем разделе
                 curr_valid_layer_2 = 0  # Валидное количество подразделов в текущем разделе
 
                 # Проверка значения
@@ -262,7 +266,7 @@ class Run(Messages):
                 # Проход по всем подразделам текущего раздела
                 for k, v in val.items():
                     # Проверка значения
-                    if type(v) is not int or v < 0:
+                    if type(v) is not int or v < 100 or v > 1920:
                         continue
 
                     # Ширина окна для масштабирования
@@ -271,7 +275,6 @@ class Run(Messages):
 
                     # Высота окна для масштабирования
                     if k == 'height':
-                        all_layer_2 += 1
                         curr_valid_layer_2 += 1
 
                 if all_layer_2 == curr_valid_layer_2:
@@ -506,6 +509,8 @@ class Run(Messages):
                     # Установка размеров текущего окна
                     self.set_window_size(self._args['resize']['width'], self._args['resize']['height'])
 
+                    self._search_font(out = False)  # Загрузка шрифта из ресурсов пакета
+
                 self.clear_image_buffer = self._args['clear_image_buffer']  # Очистка буфера с изображением
 
             # Ошибка при переключении на следующий/предыдущий фото файл
@@ -579,7 +584,9 @@ class Run(Messages):
 
         # Загрузка шрифта из файла
         try:
-            for label in ['switch', 'info', 'error', 'repeat']:
+            self._font.update({v: None for v in self._fonts})
+
+            for label in self._fonts:
                 # Текущий кадр определен
                 if self._curr_frame is not None:
                     size = int(round(
@@ -768,12 +775,9 @@ class Run(Messages):
             # Отображение надписей в терминале
             if self._args['show_labels'] is False:
                 # Надпись для терминала
-                self._stdout_write(
-                    '[{}] {}'.format(
-                        datetime.now().strftime(self._format_time),
-                        self._switch_notification
-                    ),
-                    out = out
+                self._curr_stdout = '[{}] {}'.format(
+                    datetime.now().strftime(self._format_time),
+                    self._switch_notification
                 )
 
             return True
@@ -788,10 +792,7 @@ class Run(Messages):
             # Отображение надписей в терминале
             if self._args['show_labels'] is False:
                 # Надпись для терминала
-                self._stdout_write(
-                    self._switch_notification,
-                    out = out
-                )
+                self._curr_stdout += self._switch_notification
 
             return True
 
@@ -855,11 +856,12 @@ class Run(Messages):
             self._composite()  # Формирование итогового кадра
 
     # Нанесение информации на изображение
-    def _draw_info(self, text, base_coords, background_color, text_color, stroke, stroke_color, font, out = True):
+    def _draw_info(self, text, base_coords, background_color, text_color, stroke, stroke_color, padding,
+                   font, out = True):
         """
         Нанесение информации на изображение
 
-        (str, tuple, tuple, tuple, int, tuple, PIL.ImageFont.FreeTypeFont [, bool]) -> None or tuple
+        (str, tuple, tuple, tuple, int, tuple, int, PIL.ImageFont.FreeTypeFont [, bool]) -> None or tuple
 
         Аргументы:
             text             - Текст
@@ -868,7 +870,8 @@ class Run(Messages):
             text_color       - Цвет текста
             stroke           - Ширина обводки текста
             stroke_color     - Цвет обводки текста
-            size             - Шрифт
+            padding          - Внутренний отступ
+            font             - Шрифт
             out              - Печатать процесс выполнения
 
         Возвращает: координаты нижней левой точки если информация нанесена, в обратном случае None
@@ -876,8 +879,8 @@ class Run(Messages):
 
         # Проверка аргументов
         if (type(text) is not str or not text or type(base_coords) is not tuple or type(background_color) is not tuple
-                or type(text_color) is not tuple or type(stroke) is not int or stroke < 0
-                or type(stroke_color) is not tuple or type(font) is not ImageFont.FreeTypeFont
+                or type(text_color) is not tuple or type(stroke) is not int or stroke < 0 or type(padding) is not int or
+                padding < 0 or type(stroke_color) is not tuple or type(font) is not ImageFont.FreeTypeFont
                 or type(out) is not bool):
             # Вывод сообщения
             if out is True:
@@ -891,8 +894,8 @@ class Run(Messages):
 
         # Нижняя правая точка прямоугольника
         point2 = (
-            base_coords[0] + width_text + self._args['labels_padding'] * 2 - pad * 2,
-            base_coords[1] + height_text + self._args['labels_padding'] * 2 - 1
+            base_coords[0] + width_text + padding * 2 - pad * 2,
+            base_coords[1] + height_text + padding * 2 - 1
         )
 
         # Рисование прямоугольной области в виде фона текста на изображении
@@ -903,8 +906,8 @@ class Run(Messages):
 
         # Нанесение текста на кадр
         self._curr_frame_pil_obj.text(
-            (base_coords[0] + self._args['labels_padding'] - pad,
-             base_coords[1] + self._args['labels_padding'] - offset_y), text,
+            (base_coords[0] + padding - pad,
+             base_coords[1] + padding - offset_y), text,
             font = font,
             fill = text_color,
             stroke_width = stroke,
@@ -975,6 +978,10 @@ class Run(Messages):
             sys.stdout.flush()
 
         self._stdout = stdout
+
+        # Ошибка при переключении на следующее/предыдущее фото файл
+        if self._switch_file == False:
+            self._curr_stdout = ''
 
         return True
 
@@ -1064,12 +1071,9 @@ class Run(Messages):
                         # Отображение надписей в терминале
                         if self._args['show_labels'] is False:
                             # Надпись для терминала
-                            self._stdout_write(
-                                '[{}] {} - {}'.format(
-                                    datetime.now().strftime(self._format_time),
-                                    self._repeat_video[0], self._repeat_video[1]
-                                ),
-                                out = out
+                            self._curr_stdout += '[{}] {} - {}'.format(
+                                datetime.now().strftime(self._format_time),
+                                self._repeat_video[0], self._repeat_video[1]
                             )
                         else:
                             # Размеры текста
@@ -1227,13 +1231,10 @@ class Run(Messages):
             if self._args['show_labels'] is False:
                 if self._automatic_update['invalid_config_file'] is False and other_source is None:
                     # Надпись для терминала
-                    self._stdout_write(
-                        '[{}] {}, {}'.format(
-                            datetime.now().strftime(self._format_time),
-                            stdout_label + file_resolution,
-                            self._label_fps
-                        ),
-                        out = out
+                    self._curr_stdout += '[{}] {}, {}'.format(
+                        datetime.now().strftime(self._format_time),
+                        stdout_label + file_resolution,
+                        self._label_fps
                     )
             else:
                 # Нанесение информации на изображение (FPS)
@@ -1253,6 +1254,7 @@ class Run(Messages):
                                     self._args['info_stroke_color']['green'],
                                     self._args['info_stroke_color']['blue'],
                                     self._args['info_stroke_color']['alpha']),
+                    padding = self._args['labels_padding'],
                     font = self._font['info'],
                     out = out
                 )
@@ -1282,6 +1284,7 @@ class Run(Messages):
                                     self._args['info_stroke_color']['blue'],
                                     self._args['info_stroke_color']['alpha']),
                     font = self._font['info'],
+                    padding = self._args['labels_padding'],
                     out = out
                 )
 
@@ -1311,6 +1314,7 @@ class Run(Messages):
                                         self._args['info_stroke_color']['blue'],
                                         self._args['info_stroke_color']['alpha']),
                         font = self._font['info'],
+                        padding = self._args['labels_padding'],
                         out = out
                     )
 
@@ -1340,6 +1344,7 @@ class Run(Messages):
                                         self._args['info_stroke_color']['blue'],
                                         self._args['info_stroke_color']['alpha']),
                         font = self._font['info'],
+                        padding = self._args['labels_padding'],
                         out = out
                     )
 
@@ -1352,10 +1357,8 @@ class Run(Messages):
             # Отображение надписей в терминале
             if self._args['show_labels'] is False:
                 # Надпись для терминала
-                self._stdout_write(
-                    '[{}{}{}] {}'.format(self.red, datetime.now().strftime(self._format_time), self.end,
-                                         self._check_config_file_not_valid),
-                    out = out
+                self._curr_stdout = '[{}{}{}] {}'.format(
+                    self.red, datetime.now().strftime(self._format_time), self.end, self._check_config_file_not_valid
                 )
             else:
                 # Нет ошибки при переключении на следующий/предыдущий фото файл
@@ -1380,18 +1383,19 @@ class Run(Messages):
                                         self._args['error_stroke_color']['blue'],
                                         self._args['error_stroke_color']['alpha']),
                         font = self._font['error'],
+                        padding = self._args['labels_padding'],
                         out = out
                     )
 
         # Отображение надписей в окне воспроизведения
         if self._args['show_labels'] is True:
             # Надпись для терминала
-            self._stdout_write(
-                '[{}] {}'.format(datetime.now().strftime(self._format_time), self._labels_in_window),
-                out = out
-            )
+            self._curr_stdout += '[{}] {}'.format(datetime.now().strftime(self._format_time), self._labels_in_window)
 
             self._composite()  # Формирование итогового кадра
+
+        # Надпись для терминала
+        self._stdout_write(self._curr_stdout, out = out)
 
         self.image_buffer = self._curr_frame  # Отправка изображения в буфер
 

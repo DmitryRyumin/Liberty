@@ -3,3 +3,4 @@ include liberty/configs/fonts/SegoeUI.ttf
 include liberty/modules/*
 include liberty/modules/locales/en/LC_MESSAGES/*.mo
 include liberty/modules/locales/ru/LC_MESSAGES/*.mo
+include liberty/modules/facesdet/models/*

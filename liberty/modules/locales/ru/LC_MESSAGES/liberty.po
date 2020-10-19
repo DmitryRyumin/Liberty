@@ -1,14 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR ORGANIZATION
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# liberty Russian translation.
+# Copyright (C) 2020 Dmitry Ryumin
+# Dmitry Ryumin <dl_03.03.1991@mail.ru>, 2020.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-10-09 17:11+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2020-10-18 23:23+0300\n"
+"PO-Revision-Date: 2020-10-18 23:23+0300\n"
+"Last-Translator: Dmitry Ryumin <dl_03.03.1991@mail.ru>\n"
+"Language-Team: English <dl_03.03.1991@mail.ru>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -32,47 +32,75 @@ msgstr ""
 msgid "[{}{}{}] Необходимые значения в командной строке не найдены ..."
 msgstr ""
 
+#: liberty/modules/facesdet/detection.py:36
+msgid "Детектирование лиц"
+msgstr ""
+
+#: liberty/modules/facesdet/detection.py:39
+msgid "[{}] Загрузка модели \"{}\" ..."
+msgstr ""
+
+#: liberty/modules/facesdet/detection.py:40
+msgid "[{}{}{}] Модель \"{}\" не загружена ..."
+msgstr ""
+
+#: liberty/modules/facesdet/detection.py:41
+msgid "Лиц: {}"
+msgstr ""
+
+#: liberty/modules/facesdet/detection.py:42
+msgid "Лица не найдены ..."
+msgstr ""
+
+#: liberty/modules/facesdet/detection.py:59
+msgid "Метод"
+msgstr ""
+
+#: liberty/modules/facesdet/detection.py:73
+msgid "Детектирование лиц с помощью глубокого обучения в OpenCV"
+msgstr ""
+
 #: liberty/modules/filem/file_manager.py:34
 msgid "[{}] Поиск \"{}\" файла ..."
 msgstr ""
 
-#: liberty/modules/filem/file_manager.py:35
+#: liberty/modules/filem/file_manager.py:36
 msgid "[{}{}{}] Необходимо указать название файла с расширением \"{}\" ..."
 msgstr ""
 
-#: liberty/modules/filem/file_manager.py:36
+#: liberty/modules/filem/file_manager.py:37
 msgid "[{}{}{}] Вместо файла передана директория ..."
 msgstr ""
 
-#: liberty/modules/filem/file_manager.py:37 liberty/samples/play.py:59
+#: liberty/modules/filem/file_manager.py:38 liberty/samples/play.py:57
 msgid "[{}{}{}] Файл \"{}\" не найден ..."
 msgstr ""
 
-#: liberty/modules/filem/file_manager.py:38
+#: liberty/modules/filem/file_manager.py:39
 msgid "[{}] Файл \"{}\" не найден, но был создан ..."
 msgstr ""
 
-#: liberty/modules/filem/file_manager.py:39
+#: liberty/modules/filem/file_manager.py:40
 msgid "[{}{}{}] Расширение файла должно быть \"{}\" ..."
 msgstr ""
 
-#: liberty/modules/filem/file_manager.py:41
+#: liberty/modules/filem/file_manager.py:42
 msgid "[{}] Поиск файлов с расширениями \"{}\" в директории \"{}\" ..."
 msgstr ""
 
-#: liberty/modules/filem/file_manager.py:42
+#: liberty/modules/filem/file_manager.py:43
 msgid "[{}{}{}] Необходимо указать название директории ..."
 msgstr ""
 
-#: liberty/modules/filem/file_manager.py:43
+#: liberty/modules/filem/file_manager.py:44
 msgid "[{}{}{}] В указанной директории необходимые файлы не найдены ..."
 msgstr ""
 
-#: liberty/modules/filem/file_manager.py:45
+#: liberty/modules/filem/file_manager.py:46
 msgid "[{}] Очистка директории \"{}\" ..."
 msgstr ""
 
-#: liberty/modules/filem/file_manager.py:46
+#: liberty/modules/filem/file_manager.py:47
 msgid "[{}{}{}] Директория \"{}\" не найдена ..."
 msgstr ""
 
@@ -104,115 +132,114 @@ msgstr ""
 msgid "[{}] Программа закрыта ..."
 msgstr ""
 
-#: liberty/samples/play.py:48
+#: liberty/samples/play.py:46
 msgid "Воспроизведение фото/видео данных"
 msgstr ""
 
-#: liberty/samples/play.py:52
+#: liberty/samples/play.py:50
 msgid "[{}] Запуск WEB камеры ..."
 msgstr ""
 
-#: liberty/samples/play.py:53
+#: liberty/samples/play.py:51
 msgid "[{}{}{}] Для запуска WEB-камеры необходимо указать --file {} ..."
 msgstr ""
 
-#: liberty/samples/play.py:54
+#: liberty/samples/play.py:52
 msgid "[{}] Запуск видео ..."
 msgstr ""
 
-#: liberty/samples/play.py:55
+#: liberty/samples/play.py:53
 msgid "[{}] Отображение фото ..."
 msgstr ""
 
-#: liberty/samples/play.py:56
+#: liberty/samples/play.py:54
 msgid "[{}{}{}] WEB-камера не найдена ..."
 msgstr ""
 
-#: liberty/samples/play.py:57
+#: liberty/samples/play.py:55
 msgid "[{}{}{}] Видео повреждено ..."
 msgstr ""
 
-#: liberty/samples/play.py:58
+#: liberty/samples/play.py:56
 msgid "[{}{}{}] Фото повреждено ..."
 msgstr ""
 
-#: liberty/samples/play.py:60
+#: liberty/samples/play.py:58
 msgid "Фото \"{}\" не найдено"
 msgstr ""
 
-#: liberty/samples/play.py:61
+#: liberty/samples/play.py:59
 msgid "Фото \"{}\" повреждено"
 msgstr ""
 
-#: liberty/samples/play.py:66
+#: liberty/samples/play.py:64
 msgid "[{}{}{}] Расширение файла должно быть одним из:"
 msgstr ""
 
-#: liberty/samples/play.py:70
+#: liberty/samples/play.py:68
 msgid "повтор"
 msgstr ""
 
-#: liberty/samples/play.py:72
+#: liberty/samples/play.py:70
 msgid "[{}] Проверка данных на валидность ..."
 msgstr ""
 
-#: liberty/samples/play.py:73
+#: liberty/samples/play.py:71
 msgid "[{}] Загрузка шрифта ..."
 msgstr ""
 
-#: liberty/samples/play.py:74
+#: liberty/samples/play.py:72
 msgid "[{}{}{}] Шрифт не найден ..."
 msgstr ""
 
-#: liberty/samples/play.py:75
+#: liberty/samples/play.py:73
 msgid "[{}{}{}] Шрифт не загружен ..."
 msgstr ""
 
-#: liberty/samples/play.py:77
+#: liberty/samples/play.py:75
 msgid "Ошибка в конфигурационном файле ..."
 msgstr ""
 
-#: liberty/samples/play.py:78
+#: liberty/samples/play.py:76
 msgid "Информация отображается в окне воспроизведения ..."
 msgstr ""
 
-#: liberty/samples/play.py:80
+#: liberty/samples/play.py:78
 msgid "[{}] Поиск первого файла (\"{}\") из {} ..."
 msgstr ""
 
-#: liberty/samples/play.py:82 liberty/samples/play.py:83
+#: liberty/samples/play.py:80 liberty/samples/play.py:81
 msgid "{} из {}"
 msgstr ""
 
-#: liberty/samples/play.py:85
+#: liberty/samples/play.py:83
 msgid "{}×{}"
 msgstr ""
 
-#: liberty/samples/play.py:182 liberty/samples/play.py:185
+#: liberty/samples/play.py:184 liberty/samples/play.py:187
 msgid "ФАЙЛ"
 msgstr ""
 
-#: liberty/samples/play.py:183
-msgid "Путь к фото/видео файлу  или каталогу с фото файлами, значение по умолчанию:"
+#: liberty/samples/play.py:185
+msgid "Путь к фото/видео файлу или каталогу с фото файлами, значение по умолчанию:"
 msgstr ""
 
-#: liberty/samples/play.py:186
+#: liberty/samples/play.py:188
 msgid "Путь к конфигурационному файлу"
 msgstr ""
 
-#: liberty/samples/play.py:187
+#: liberty/samples/play.py:189
 msgid "ЦЕЛОЕ_ЧИСЛО"
 msgstr ""
 
-#: liberty/samples/play.py:189
+#: liberty/samples/play.py:191
 msgid "Через какое количество шагов проверять конфигурационный файл (работает при --automatic_update, значение по умолчанию:"
 msgstr ""
 
-#: liberty/samples/play.py:193
+#: liberty/samples/play.py:195
 msgid "Автоматическая проверка конфигурационного файла в момент работы программы (работает при заданном"
 msgstr ""
 
-#: liberty/samples/play.py:196
+#: liberty/samples/play.py:198
 msgid "Не очищать консоль перед выполнением"
 msgstr ""
-

@@ -1,5 +1,21 @@
 # Liberty - компьютерное зрение в реальном времени
 
+## 19 октября 2020
+
+> `1.2.0`
+
+<h4><span style="color:#008000;">Что нового</span></h4>
+
+- Новый модуль [facesdet](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/modules/facesdet/README_RU.md) для детектирования лиц
+
+<h4><span style="color:#247CB4;">Изменения</span></h4>
+
+- Обновлены зависимости
+
+<h4><span style="color:#DB534F;">Исправления</span></h4>
+
+- Исправлены мелкие ошибки
+
 ## 9 октября 2020
 
 > `1.1.2`

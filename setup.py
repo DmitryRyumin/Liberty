@@ -14,7 +14,7 @@ REQUIRED_PACKAGES = [
     'opencv-contrib-python >= 4.4.0.42',
     'PyOpenGL >= 3.1.5',
     'PyOpenGL-accelerate >= 3.1.5',
-    'Pillow >= 7.1.2',
+    'Pillow >= 8.0.0',
     'comtypes >= 1.1.7',
     'colorama >= 0.4.3',
     'xmltodict >= 0.12.0'
@@ -68,6 +68,7 @@ with open('README.md', 'r') as fh:
         entry_points = {
             'console_scripts': [
                 'liberty_play = liberty.samples.play:main',
+                'liberty_facesdet = liberty.samples.facesdet_play:main',
             ],
         },
     )

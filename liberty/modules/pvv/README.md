@@ -22,7 +22,7 @@
 | ---------------- | ---- | ----------- | ------------ |
 | hide_metadata | bool | Hide metadata | - |
 | window_name | str | Window name | - |
-| resize | dict | Window size for resize | From `0` to `∞` |
+| resize | dict | Window size for resize | From `100` to `1920` |
 | switch_text_color | dict | Text color of error notification texts when switching photos | From `0` to `255` |
 | switch_size | int | Font size for error notification texts when switching photos | From `1` to `60` |
 | switch_stroke | int | Stroke width for error notification texts when switching photos | From `0` to `4` |

@@ -3,6 +3,7 @@
 ![PyPI](https://img.shields.io/pypi/v/liberty)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/liberty)
 ![PyPI - Implementation](https://img.shields.io/pypi/implementation/liberty)
+![GitHub repo size](https://img.shields.io/github/repo-size/dmitryryumin/liberty)
 ![PyPI - Status](https://img.shields.io/pypi/status/liberty)
 ![PyPI - License](https://img.shields.io/pypi/l/liberty)
 
@@ -44,7 +45,7 @@ pip install --upgrade liberty
 `opencv-contrib-python` | `4.4.0.42` | ![PyPI](https://img.shields.io/pypi/v/opencv-contrib-python) |
 `PyOpenGL` | `3.1.5` | ![PyPI](https://img.shields.io/pypi/v/PyOpenGL) |
 `PyOpenGL-accelerate` | `3.1.5` | ![PyPI](https://img.shields.io/pypi/v/PyOpenGL-accelerate) |
-`Pillow` | `7.1.2` | ![PyPI](https://img.shields.io/pypi/v/Pillow) |
+`Pillow` | `8.0.0` | ![PyPI](https://img.shields.io/pypi/v/Pillow) |
 `comtypes` | `1.1.7` | ![PyPI](https://img.shields.io/pypi/v/comtypes) |
 `colorama` | `0.4.3` | ![PyPI](https://img.shields.io/pypi/v/colorama) |
 `xmltodict` | `0.12.0` | ![PyPI](https://img.shields.io/pypi/v/xmltodict) |
@@ -57,3 +58,4 @@ pip install --upgrade liberty
 | [core](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/core) | Module core | | |
 | [filem](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/filem) | Operation with Files | | |
 | [pvv](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/pvv) | Playing photo/video data | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/pvv.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/play.py) |
+| [facesdet](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/modules/facesdet/README_RU.md) | Faces detection | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/facesdet.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/facesdet_play.py) |

@@ -1,5 +1,21 @@
 # Liberty - Real-time computer vision
 
+## October 19, 2020
+
+> `1.2.0`
+
+<h4><span style="color:#008000;">What's new</span></h4>
+
+- New module [facesdet](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/modules/facesdet/README_RU.md) for faces detection
+
+<h4><span style="color:#247CB4;">Changes</span></h4>
+
+- Updated require packages
+
+<h4><span style="color:#DB534F;">Fixed bugs</span></h4>
+
+- Fixed minor bugs
+
 ## October 9, 2020
 
 > `1.1.2`
