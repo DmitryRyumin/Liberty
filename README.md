@@ -58,4 +58,4 @@ pip install --upgrade liberty
 | [core](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/core) | Module core | | |
 | [filem](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/filem) | Operation with Files | | |
 | [pvv](https://github.com/DmitryRyumin/Liberty/tree/master/liberty/modules/pvv) | Playing photo/video data | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/pvv.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/play.py) |
-| [facesdet](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/modules/facesdet/README_RU.md) | Faces detection | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/facesdet.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/facesdet_play.py) |
+| [facesdet](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/modules/facesdet/README.md) | Faces detection | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/configs/facesdet.json) | [+](https://github.com/DmitryRyumin/Liberty/blob/master/liberty/samples/facesdet_play.py) |
