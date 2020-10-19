@@ -14,7 +14,6 @@ import pkg_resources  # Работа с ресурсами внутри паке
 import numpy as np    # Научные вычисления
 
 from datetime import datetime  # Работа со временем
-from decimal import Decimal, ROUND_HALF_UP  # Округление по математическому закону
 
 # Персональные
 from liberty.samples import play  # Пример воспроизведения фото/видео данных
